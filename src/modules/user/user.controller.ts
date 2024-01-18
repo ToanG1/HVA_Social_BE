@@ -1,34 +1,50 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Patch,
+  ParseIntPipe,
+  UsePipes,
+  ValidationPipe,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto } from './userDTO/createUser.dto';
+import { UpdateUserDto } from './userDTO/updateUser.dto';
+import { AuthGuard } from 'src/guard/auth.guard';
 
-@Controller('user')
+@Controller('api/user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
-
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
+  constructor(private userService: UserService) {}
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  @UseGuards(AuthGuard)
+  getAllUsers() {
+    return this.userService.getAllUsers();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  @Post()
+  @UsePipes(new ValidationPipe({ whitelist: true }))
+  createNewUser(@Body() createUserDto: CreateUserDto) {
+    return this.userService.createUser(createUserDto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  @Get('/:id')
+  async getUser(@Param('id') userId: string) {
+    return await this.userService.getUser(userId);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  @Patch('/:id')
+  @UsePipes(new ValidationPipe({ whitelist: true }))
+  updateUser(@Param('id') userId: string, @Body() userUpdate: UpdateUserDto) {
+    return this.userService.updateUser(userId, userUpdate);
+  }
+
+  @Delete('/:id')
+  deleteUser(@Param('id', ParseIntPipe) userId: string) {
+    return this.userService.deleteUser(userId);
   }
 }
