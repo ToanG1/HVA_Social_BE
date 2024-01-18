@@ -12,6 +12,8 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
 import { AdManagementModule } from './modules/ad-management/ad-management.module';
 import { AdCategoriesModule } from './modules/ad-categories/ad-categories.module';
 import { LogsModule } from './modules/logs/logs.module';
+import { MailSenderModule } from './modules/mail-sender/mail-sender.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { LogsModule } from './modules/logs/logs.module';
     AdManagementModule,
     AdCategoriesModule,
     LogsModule,
+    MailSenderModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
