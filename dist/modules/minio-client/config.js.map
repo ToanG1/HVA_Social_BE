@@ -1,0 +1,1 @@
+{"version":3,"file":"config.js","sourceRoot":"","sources":["../../../src/modules/minio-client/config.ts"],"names":[],"mappings":";;;AAAa,QAAA,MAAM,GAAG;IACpB,cAAc,EAAE,OAAO,CAAC,GAAG,CAAC,cAAc;IAC1C,UAAU,EAAE,OAAO,CAAC,GAAG,CAAC,UAAU;IAClC,eAAe,EAAE,OAAO,CAAC,GAAG,CAAC,eAAe;IAC5C,eAAe,EAAE,OAAO,CAAC,GAAG,CAAC,eAAe;IAC5C,YAAY,EAAE,OAAO,CAAC,GAAG,CAAC,YAAY;CACvC,CAAC"}
