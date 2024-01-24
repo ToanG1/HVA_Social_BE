@@ -12,28 +12,28 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PostService = void 0;
+exports.PostCommentService = void 0;
 const common_1 = require("@nestjs/common");
-const update_post_dto_1 = require("../dto/update-post.dto");
+const update_post_comment_dto_1 = require("../dto/update-post-comment.dto");
 const prisma_service_1 = require("../../prisma/prisma.service");
-let PostService = class PostService {
+let PostCommentService = class PostCommentService {
     constructor(prismaService) {
         this.prismaService = prismaService;
     }
-    async create(createPostDto, userId) {
-        const post = this.prismaService.post.create({
+    async create(createPostCommentDto, userId) {
+        const commentpost = this.prismaService.post.create({
             data: {
-                content: createPostDto.content,
+                content: createPostCommentDto.content,
                 userId: userId,
-                videos: createPostDto.video,
-                images: createPostDto.image,
+                videos: createPostCommentDto.video,
+                images: createPostCommentDto.image,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
         });
-        return post;
+        return commentpost;
     }
-    async getPost(userId) {
+    async getCommentPost(userId) {
         return this.prismaService.user.findUnique({
             where: {
                 id: userId,
@@ -47,35 +47,11 @@ let PostService = class PostService {
             },
         });
     }
-    async updatePost(id, updatePost) {
-        const foundUser = await this.findUserById(id);
-    }
-    async findUserById(id) {
-        return await this.prismaService.post.findUnique({
-            where: {
-                id: id,
-            },
-        });
-    }
     findAll() {
-        return this.prismaService.post.findMany({
-            where: {
-                isActivated: true,
-            },
-            include: {
-                user: {
-                    select: {
-                        name: true,
-                    },
-                },
-            },
-            orderBy: {
-                createdAt: 'desc',
-            },
-        });
+        return `This action returns all postComment`;
     }
     async findOne(id) {
-        const q = await this.prismaService.post.findUnique({
+        const q = await this.prismaService.postComment.findUnique({
             where: {
                 id: String(id),
             },
@@ -90,63 +66,40 @@ let PostService = class PostService {
         });
         return q;
     }
-    async update(id, updatePostDto) {
-        const post = this.prismaService.post.update({
+    async update(id, updatePostCommentDto) {
+        const commentpost = this.prismaService.post.update({
             where: {
                 id: id,
             },
             data: {
-                content: updatePostDto.content || undefined,
+                content: updatePostCommentDto.content || undefined,
                 userId: id,
-                videos: updatePostDto.video,
-                images: updatePostDto.image,
+                videos: updatePostCommentDto.video,
+                images: updatePostCommentDto.image,
                 updatedAt: new Date(),
             },
         });
-        return post;
+        return commentpost;
     }
     async remove(Id) {
-        const deleteReplies = this.prismaService.postComment.deleteMany({
+        const deletecomment = this.prismaService.postComment.deleteMany({
             where: {
                 id: String(Id),
             },
         });
-        const deletePost = this.prismaService.post.delete({
-            where: {
-                id: String(Id),
-            },
-        });
-        await this.prismaService.$transaction([deleteReplies, deletePost]);
+        await this.prismaService.$transaction([deletecomment]);
         return 'success';
     }
-    search(searchString) {
-        return this.prismaService.post.findMany({
-            where: {
-                content: {
-                    contains: searchString,
-                    mode: 'insensitive',
-                },
-            },
-            include: {
-                user: {
-                    select: {
-                        name: true,
-                    },
-                },
-            },
-        });
-    }
 };
-exports.PostService = PostService;
+exports.PostCommentService = PostCommentService;
 __decorate([
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_post_dto_1.UpdatePostDto]),
+    __metadata("design:paramtypes", [String, update_post_comment_dto_1.UpdatePostCommentDto]),
     __metadata("design:returntype", Promise)
-], PostService.prototype, "update", null);
-exports.PostService = PostService = __decorate([
+], PostCommentService.prototype, "update", null);
+exports.PostCommentService = PostCommentService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService])
-], PostService);
-//# sourceMappingURL=post.service.js.map
+], PostCommentService);
+//# sourceMappingURL=post-comment.service.js.map

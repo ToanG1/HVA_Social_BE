@@ -16,11 +16,40 @@ model User {
   isActivated Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  posts       Post[]
+  chats       Chats[]
+  post        Post[]
 
   comments PostComment[]
   tokens   Token[]
   userInfo UserInfo?
+  follow   Follow[]
+  groups   Groups[]
+}
+
+model Chats {
+  id                      String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId                  String
+  creator                 String
+  recipient               String
+  messages                String
+  statusMessage           Boolean  @default(true)
+  createdAt               DateTime @default(now())
+  //lastMessageSent DateTime @updatedAt    
+  lastMessageSentUpdateAt DateTime @updatedAt
+  user                    User     @relation(fields: [userId], references: [id])
+}
+
+model Groups {
+  id                      String   @id @default(auto()) @map("_id") @db.ObjectId
+  title                   String
+  avatar                  String
+  userId                  String
+  creator                 String
+  messages                String
+  createdAt               DateTime @default(now())
+  statusUsers             Boolean  @default(true)
+  lastMessageSentUpdateAt DateTime @updatedAt
+  user                    User     @relation(fields: [userId], references: [id])
 }
 
 model Token {
@@ -49,11 +78,10 @@ model UserInfo {
 model Follow {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   followDate DateTime @default(now())
-  followerId String
-
-  followingId String
-  follower    String //
-  following   String //
+  followerId String   @unique
+  createdAt  DateTime @default(now())
+  status     Boolean  @default(true)
+  follower   User     @relation(fields: [followerId], references: [id])
 }
 
 model Post {
@@ -67,7 +95,6 @@ model Post {
   updatedAt   DateTime @updatedAt
 
   user     User          @relation(fields: [userId], references: [id])
-  //authorId String @db.ObjectId
   comments PostComment[]
 }
 
@@ -87,14 +114,14 @@ model PostComment {
   postReply String //PostReplyComment @relation(fields: [postReplyId], references: [id], onDelete: Cascade)
 }
 
-model PostReplyComment {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
-  content          String
-  userId           String
-  questionId       Int
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-  user             String // User              @relation(fields: [userId], references: [uuid])
-  question         String //Post              @relation(fields: [questionId], references: [id], onDelete: Cascade)
-  questionComments String //PostComment[]
-}
+// model PostReplyComment {
+//   id               String   @id @default(auto()) @map("_id") @db.ObjectId
+//   content          String
+//   userId           String
+//   questionId       Int
+//   createdAt        DateTime @default(now())
+//   updatedAt        DateTime @updatedAt
+//   user             String // User              @relation(fields: [userId], references: [uuid])
+//   question         String //Post              @relation(fields: [questionId], references: [id], onDelete: Cascade)
+//   questionComments String //PostComment[]
+// }

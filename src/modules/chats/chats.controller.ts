@@ -1,15 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
 import { ChatsService } from './chats.service';
 import { CreateChatDto } from './dto/create-chat.dto';
 import { UpdateChatDto } from './dto/update-chat.dto';
+import { AuthGuard } from 'src/guard/auth.guard';
+import { User } from '@prisma/client';
 
-@Controller('chats')
+@Controller('api/chats')
 export class ChatsController {
   constructor(private readonly chatsService: ChatsService) {}
 
   @Post()
-  create(@Body() createChatDto: CreateChatDto) {
-    return this.chatsService.create(createChatDto);
+  @UseGuards(AuthGuard)
+  async createChats(
+    @Body() createChatDto: CreateChatDto,
+     @Request() req: any,
+    ) {
+   
   }
 
   @Get()
