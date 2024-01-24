@@ -54,7 +54,11 @@ export class PostCommentController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string, @Request() req: any) {
+    const commentpost = await this.postCommentService.findOne(id);
+    if (commentpost.user.id !== req.user.sub) {
+      throw new ForbiddenException();
+    }
     return this.postCommentService.remove(id);
   }
 }

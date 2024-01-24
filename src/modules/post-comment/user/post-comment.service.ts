@@ -38,8 +38,21 @@ export class PostCommentService {
     return `This action returns all postComment`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} postComment`;
+  async findOne(id: string) {
+    const q = await this.prismaService.postComment.findUnique({
+      where: {
+        id: String(id),
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+      },
+    });
+    return q;
   }
 
   async update(

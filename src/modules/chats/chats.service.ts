@@ -4,8 +4,36 @@ import { UpdateChatDto } from './dto/update-chat.dto';
 
 @Injectable()
 export class ChatsService {
-  create(createChatDto: CreateChatDto) {
-    return 'This action adds a new chat';
+  // async createUser(userDto: CreateUserDto) {
+  //   const foundUser = await this.prismaService.user.findUnique({
+  //     where: {
+  //       email: userDto.email,
+  //     },
+  //   });
+  //   if (foundUser) {
+  //     throw new HttpException(
+  //       'user with this email already exists',
+  //       HttpStatus.NOT_ACCEPTABLE,
+  //     );
+  //   }
+  //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //   const hashedPassword = await bcrypt.hash(userDto.password, Rounds);
+  //   userDto.password = hashedPassword;
+  //   const createdUser = await this.prismaService.user.create({
+  //     data: userDto,
+  //   });
+  //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //   const { password, ...result } = createdUser;
+  //   return result;
+  // }
+
+  async create(createChatDto: CreateChatDto) {
+    //   const foundUser = await this..findUnique({
+    //         where: {
+    //         //  email: userDto.email,
+    //         },
+    //       });
+    // }
   }
 
   findAll() {

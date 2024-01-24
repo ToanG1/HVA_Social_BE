@@ -33,6 +33,7 @@ __decorate([
         required: true,
         type: String,
     }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Array)
 ], CreatePostDto.prototype, "image", void 0);
 __decorate([
@@ -42,6 +43,7 @@ __decorate([
         required: true,
         type: String,
     }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Array)
 ], CreatePostDto.prototype, "video", void 0);
 //# sourceMappingURL=create-post.dto.js.map

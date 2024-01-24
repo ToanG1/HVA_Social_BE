@@ -23,7 +23,7 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post()
-  //  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   async create(@Body() createPostDto: CreatePostDto, @Request() req: any) {
     return await this.postService.create(createPostDto, req.user.sub);
   }
