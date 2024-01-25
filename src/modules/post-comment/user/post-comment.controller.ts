@@ -27,6 +27,7 @@ export class PostCommentController {
     return await this.postCommentService.create(
       createPostCommentDto,
       req.user.sub,
+      req.post.sub,
     );
   }
 

@@ -69,6 +69,7 @@ __decorate([
 ], PostController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)('search'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.UseInterceptors)(pagination_interceptors_1.PaginationInterceptor),
     __param(0, (0, common_1.Query)('keyword')),
     __metadata("design:type", Function),
@@ -84,6 +85,7 @@ __decorate([
 ], PostController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Request)()),

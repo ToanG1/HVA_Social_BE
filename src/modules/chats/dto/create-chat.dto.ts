@@ -1,14 +1,3 @@
-// model Chats {
-//     id                      String   @id @default(auto()) @map("_id") @db.ObjectId
-//     userId                  String
-//     creator                 String
-//     recipient               String
-//     messages                String
-//     createdAt               DateTime @default(now())
-//     //lastMessageSent DateTime @updatedAt
-//     lastMessageSentUpdateAt DateTime @updatedAt
-//     user                    User     @relation(fields: [userId], references: [id])
-//   }
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
@@ -32,7 +21,7 @@ export class CreateChatDto {
   @IsString()
   @IsNotEmpty()
   recipient: string;
-  
+
   @ApiProperty({
     description: 'messages chat',
     example: 'messages chat',
@@ -41,6 +30,5 @@ export class CreateChatDto {
   })
   @IsString()
   @IsNotEmpty()
-  messages : string;
-
+  messages: string;
 }

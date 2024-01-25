@@ -4,47 +4,47 @@ import { PrismaService } from 'src/modules/prisma/prisma.service';
 export declare class PostCommentService {
     private readonly prismaService;
     constructor(prismaService: PrismaService);
-    create(createPostCommentDto: CreatePostCommentDto, userId: string): Promise<{
+    create(createPostCommentDto: CreatePostCommentDto, userId: string, postId: string): Promise<{
         id: string;
         content: string;
         images: string[];
         videos: string[];
         userId: string;
-        isActivated: boolean;
+        postId: string;
         createdAt: Date;
         updatedAt: Date;
     }>;
-    getCommentPost(userId: string): Promise<{
-        userInfo: {
-            id: string;
-            userId: string;
-            avatar: string;
-            about: string;
-            createdAt: Date;
-            updatedAt: Date;
-        };
-        name: string;
-        email: string;
-        isAdmin: boolean;
+    getCommentPost(postId: string): Promise<{
         id: string;
+        content: string;
+        images: string[];
+        videos: string[];
     }>;
     findAll(): string;
     findOne(id: string): Promise<{
         user: {
+            post: {
+                id: string;
+                content: string;
+                images: string[];
+                videos: string[];
+                userId: string;
+                isActivated: boolean;
+                createdAt: Date;
+                updatedAt: Date;
+            }[];
             name: string;
             id: string;
         };
     } & {
         id: string;
         content: string;
-        image: string;
-        video: string;
+        images: string[];
+        videos: string[];
         userId: string;
         postId: string;
-        postReplyId: number;
         createdAt: Date;
         updatedAt: Date;
-        postReply: string;
     }>;
     update(id: string, updatePostCommentDto: UpdatePostCommentDto): Promise<{
         id: string;
@@ -52,7 +52,7 @@ export declare class PostCommentService {
         images: string[];
         videos: string[];
         userId: string;
-        isActivated: boolean;
+        postId: string;
         createdAt: Date;
         updatedAt: Date;
     }>;

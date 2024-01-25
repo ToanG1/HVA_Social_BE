@@ -80,6 +80,20 @@ export class PostService {
     });
     return q;
   }
+  async get(userId: string) {
+    return this.prismaService.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        isAdmin: true,
+        userInfo: true,
+      },
+    });
+  }
 
   async update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
     const post = this.prismaService.post.update({

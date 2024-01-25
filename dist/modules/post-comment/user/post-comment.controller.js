@@ -22,7 +22,7 @@ let PostCommentController = class PostCommentController {
         this.postCommentService = postCommentService;
     }
     async create(createPostCommentDto, req) {
-        return await this.postCommentService.create(createPostCommentDto, req.user.sub);
+        return await this.postCommentService.create(createPostCommentDto, req.user.sub, req.post.sub);
     }
     findAll() {
         return this.postCommentService.findAll();

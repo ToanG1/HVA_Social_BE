@@ -20,11 +20,12 @@ let PostCommentService = class PostCommentService {
     constructor(prismaService) {
         this.prismaService = prismaService;
     }
-    async create(createPostCommentDto, userId) {
-        const commentpost = this.prismaService.post.create({
+    async create(createPostCommentDto, userId, postId) {
+        const commentpost = this.prismaService.postComment.create({
             data: {
                 content: createPostCommentDto.content,
                 userId: userId,
+                postId: postId,
                 videos: createPostCommentDto.video,
                 images: createPostCommentDto.image,
                 createdAt: new Date(),
@@ -33,17 +34,16 @@ let PostCommentService = class PostCommentService {
         });
         return commentpost;
     }
-    async getCommentPost(userId) {
-        return this.prismaService.user.findUnique({
+    async getCommentPost(postId) {
+        return this.prismaService.post.findUnique({
             where: {
-                id: userId,
+                id: postId,
             },
             select: {
                 id: true,
-                name: true,
-                email: true,
-                isAdmin: true,
-                userInfo: true,
+                content: true,
+                images: true,
+                videos: true,
             },
         });
     }
@@ -59,6 +59,7 @@ let PostCommentService = class PostCommentService {
                 user: {
                     select: {
                         name: true,
+                        post: true,
                         id: true,
                     },
                 },
@@ -67,7 +68,7 @@ let PostCommentService = class PostCommentService {
         return q;
     }
     async update(id, updatePostCommentDto) {
-        const commentpost = this.prismaService.post.update({
+        const commentpost = this.prismaService.postComment.update({
             where: {
                 id: id,
             },

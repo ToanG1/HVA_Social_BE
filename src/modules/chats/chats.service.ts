@@ -1,54 +1,111 @@
 import { Injectable } from '@nestjs/common';
 import { CreateChatDto } from './dto/create-chat.dto';
 import { UpdateChatDto } from './dto/update-chat.dto';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class ChatsService {
-  // async createUser(userDto: CreateUserDto) {
-  //   const foundUser = await this.prismaService.user.findUnique({
-  //     where: {
-  //       email: userDto.email,
-  //     },
-  //   });
-  //   if (foundUser) {
-  //     throw new HttpException(
-  //       'user with this email already exists',
-  //       HttpStatus.NOT_ACCEPTABLE,
-  //     );
-  //   }
-  //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //   const hashedPassword = await bcrypt.hash(userDto.password, Rounds);
-  //   userDto.password = hashedPassword;
-  //   const createdUser = await this.prismaService.user.create({
-  //     data: userDto,
-  //   });
-  //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //   const { password, ...result } = createdUser;
-  //   return result;
-  // }
-
-  async create(createChatDto: CreateChatDto) {
-    //   const foundUser = await this..findUnique({
-    //         where: {
-    //         //  email: userDto.email,
-    //         },
-    //       });
-    // }
+  constructor(private readonly prismaService: PrismaService) {}
+  async create(createChatDto: CreateChatDto, userId: string, flower: string) {
+    const creatChat = this.prismaService.chats.create({
+      data: {
+        userId: userId,
+        follower: flower,
+        creator: createChatDto.creator,
+        recipient: createChatDto.recipient,
+        messages: createChatDto.messages,
+      },
+    });
+    return creatChat;
   }
 
   findAll() {
-    return `This action returns all chats`;
+    return this.prismaService.chats.findMany({
+      where: {
+        isActivated: true,
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} chat`;
+  async findOne(flower: string) {
+    const q = await this.prismaService.chats.findUnique({
+      where: {
+        id: flower,
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+      },
+    });
+    return q;
+  }
+  search(searchString: string) {
+    return this.prismaService.chats.findMany({
+      where: {
+        messages: {
+          contains: searchString,
+          mode: 'insensitive',
+        },
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+            follow: true,
+          },
+        },
+      },
+    });
   }
 
-  update(id: number, updateChatDto: UpdateChatDto) {
-    return `This action updates a #${id} chat`;
+  async getPost(userId: string) {
+    return this.prismaService.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        id: true,
+        name: true,
+        chats: true,
+        isAdmin: true,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} chat`;
+  async updateChat(id: string, updateChatDto: UpdateChatDto) {
+    const updateChat = this.prismaService.chats.update({
+      where: {
+        id: id,
+      },
+      data: {
+        statusMessage: updateChatDto.statusMessage,
+        updatedAt: new Date(),
+      },
+    });
+    return updateChat;
+  }
+
+  async remove(id: string) {
+    const deleteChats = this.prismaService.chats.delete({
+      where: {
+        id: String(id),
+      },
+    });
+    await this.prismaService.$transaction([deleteChats]);
+    return 'success';
   }
 }

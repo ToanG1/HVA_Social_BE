@@ -21,29 +21,30 @@ let PostReplyCommentController = class PostReplyCommentController {
     constructor(postReplyCommentService) {
         this.postReplyCommentService = postReplyCommentService;
     }
-    create(createPostReplyCommentDto) {
-        return this.postReplyCommentService.create(createPostReplyCommentDto);
+    async create(createPostReplyCommentDto, req) {
+        return await this.postReplyCommentService.create(createPostReplyCommentDto, req.user.sub, req.post.sub);
     }
     findAll() {
         return this.postReplyCommentService.findAll();
     }
     findOne(id) {
-        return this.postReplyCommentService.findOne(+id);
+        return this.postReplyCommentService.findOne(id);
     }
     update(id, updatePostReplyCommentDto) {
-        return this.postReplyCommentService.update(+id, updatePostReplyCommentDto);
+        return this.postReplyCommentService.update(id, updatePostReplyCommentDto);
     }
     remove(id) {
-        return this.postReplyCommentService.remove(+id);
+        return this.postReplyCommentService.remove(id);
     }
 };
 exports.PostReplyCommentController = PostReplyCommentController;
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_post_reply_comment_dto_1.CreatePostReplyCommentDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [create_post_reply_comment_dto_1.CreatePostReplyCommentDto, Object]),
+    __metadata("design:returntype", Promise)
 ], PostReplyCommentController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),

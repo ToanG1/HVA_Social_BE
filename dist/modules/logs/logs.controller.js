@@ -17,33 +17,36 @@ const common_1 = require("@nestjs/common");
 const logs_service_1 = require("./logs.service");
 const create_log_dto_1 = require("./dto/create-log.dto");
 const update_log_dto_1 = require("./dto/update-log.dto");
+const auth_guard_1 = require("../../guard/auth.guard");
 let LogsController = class LogsController {
     constructor(logsService) {
         this.logsService = logsService;
     }
-    create(createLogDto) {
-        return this.logsService.create(createLogDto);
+    async create(createLogDto, req) {
+        return await this.logsService.create(createLogDto, req.logs.sub);
     }
     findAll() {
         return this.logsService.findAll();
     }
     findOne(id) {
-        return this.logsService.findOne(+id);
+        return this.logsService.findOne(id);
     }
     update(id, updateLogDto) {
-        return this.logsService.update(+id, updateLogDto);
+        return this.logsService.update(id, updateLogDto);
     }
     remove(id) {
-        return this.logsService.remove(+id);
+        return this.logsService.remove(id);
     }
 };
 exports.LogsController = LogsController;
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_log_dto_1.CreateLogDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [create_log_dto_1.CreateLogDto, Object]),
+    __metadata("design:returntype", Promise)
 ], LogsController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),

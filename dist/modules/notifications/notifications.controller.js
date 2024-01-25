@@ -33,8 +33,11 @@ let NotificationsController = class NotificationsController {
     update(id, updateNotificationDto) {
         return this.notificationsService.update(+id, updateNotificationDto);
     }
-    remove(id) {
-        return this.notificationsService.remove(+id);
+    updateLikePost(id, updateNotificationDto) {
+        return this.notificationsService.update(+id, updateNotificationDto);
+    }
+    remove(id, updateNotificationDto) {
+        return this.notificationsService.remove(id, updateNotificationDto);
     }
 };
 exports.NotificationsController = NotificationsController;
@@ -67,10 +70,19 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], NotificationsController.prototype, "update", null);
 __decorate([
+    (0, common_1.Patch)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_notification_dto_1.UpdateNotificationDto]),
+    __metadata("design:returntype", void 0)
+], NotificationsController.prototype, "updateLikePost", null);
+__decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, update_notification_dto_1.UpdateNotificationDto]),
     __metadata("design:returntype", void 0)
 ], NotificationsController.prototype, "remove", null);
 exports.NotificationsController = NotificationsController = __decorate([

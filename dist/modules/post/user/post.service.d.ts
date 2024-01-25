@@ -16,10 +16,6 @@ export declare class PostService {
         updatedAt: Date;
     }>;
     getPost(userId: string): Promise<{
-        name: string;
-        id: string;
-        email: string;
-        isAdmin: boolean;
         userInfo: {
             id: string;
             userId: string;
@@ -28,6 +24,10 @@ export declare class PostService {
             createdAt: Date;
             updatedAt: Date;
         };
+        name: string;
+        email: string;
+        isAdmin: boolean;
+        id: string;
     }>;
     updatePost(id: string, updatePost: UpdatePostDto): Promise<void>;
     findUserById(id: string): Promise<Post | null | undefined>;
@@ -59,6 +59,20 @@ export declare class PostService {
         isActivated: boolean;
         createdAt: Date;
         updatedAt: Date;
+    }>;
+    get(userId: string): Promise<{
+        userInfo: {
+            id: string;
+            userId: string;
+            avatar: string;
+            about: string;
+            createdAt: Date;
+            updatedAt: Date;
+        };
+        name: string;
+        email: string;
+        isAdmin: boolean;
+        id: string;
     }>;
     update(id: string, updatePostDto: UpdatePostDto): Promise<{
         id: string;

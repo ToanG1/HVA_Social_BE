@@ -1,6 +1,14 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-export class CreateFriendshipDto extends HttpException{
-    constructor() {
-        super('Friend Not Found', HttpStatus.NOT_FOUND);
-      }
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsString } from 'class-validator';
+export class CreateFriendshipDto extends HttpException {
+  @ApiProperty({
+    description: 'user id flower',
+    example: 'user id flower',
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @IsNotEmpty()
+  followerId: string;
 }
