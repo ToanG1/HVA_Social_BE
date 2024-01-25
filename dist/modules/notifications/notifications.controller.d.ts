@@ -8,5 +8,15 @@ export declare class NotificationsController {
     findAll(): string;
     findOne(id: string): string;
     update(id: string, updateNotificationDto: UpdateNotificationDto): string;
-    remove(id: string): string;
+    updateLikePost(id: string, updateNotificationDto: UpdateNotificationDto): string;
+    remove(id: string, updateNotificationDto: UpdateNotificationDto): import(".prisma/client").Prisma.Prisma__NotificationsClient<{
+        id: string;
+        like: boolean;
+        share: boolean;
+        userId: string;
+        postId: string;
+        commentPostId: string;
+        replycomentId: string;
+        createdAt: Date;
+    }, never, import("@prisma/client/runtime/library").DefaultArgs>;
 }

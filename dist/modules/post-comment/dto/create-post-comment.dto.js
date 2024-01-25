@@ -22,19 +22,8 @@ __decorate([
         type: String,
     }),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreatePostCommentDto.prototype, "content", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        description: 'post id',
-        example: 1,
-        type: Number,
-    }),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreatePostCommentDto.prototype, "postId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'link image of post',

@@ -19,23 +19,30 @@ model User {
   chats       Chats[]
   post        Post[]
 
-  comments PostComment[]
-  tokens   Token[]
-  userInfo UserInfo?
-  follow   Follow[]
-  groups   Groups[]
+  comments     PostComment[]
+  tokens       Token[]
+  userInfo     UserInfo?
+  follow       Follow[]
+  groups       Groups[]
+  logs         Logs[]
+  replycomment PostReplyComment[]
+  notification Notifications[]
 }
 
 model Chats {
   id                      String   @id @default(auto()) @map("_id") @db.ObjectId
   userId                  String
+  follower                String
   creator                 String
   recipient               String
   messages                String
+  isActivated             Boolean  @default(false)
   statusMessage           Boolean  @default(true)
   createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
   //lastMessageSent DateTime @updatedAt    
   lastMessageSentUpdateAt DateTime @updatedAt
+  createChats             Follow   @relation(fields: [follower], references: [followerId])
   user                    User     @relation(fields: [userId], references: [id])
 }
 
@@ -77,11 +84,10 @@ model UserInfo {
 
 model Follow {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  followDate DateTime @default(now())
   followerId String   @unique
   createdAt  DateTime @default(now())
-  status     Boolean  @default(true)
   follower   User     @relation(fields: [followerId], references: [id])
+  Chats      Chats[]
 }
 
 model Post {
@@ -94,34 +100,68 @@ model Post {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  user     User          @relation(fields: [userId], references: [id])
-  comments PostComment[]
+  user         User            @relation(fields: [userId], references: [id])
+  comments     PostComment[]
+  notification Notifications[]
 }
 
 model PostComment {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  content     String
-  image       String
-  video       String
-  userId      String
-  postId      String   @db.ObjectId
-  postReplyId Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  images    String[]
+  videos    String[]
+  userId    String
+  postId    String   @db.ObjectId
+  // commentReplyId      String // Nullable as it's an ID
+  //contentCommentReply String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  user      User   @relation(fields: [userId], references: [id])
-  post      Post   @relation(fields: [postId], references: [id])
-  postReply String //PostReplyComment @relation(fields: [postReplyId], references: [id], onDelete: Cascade)
+  // Relationships
+  user         User               @relation(fields: [userId], references: [id])
+  post         Post               @relation(fields: [postId], references: [id])
+  commentReply PostReplyComment[]
+  notification Notifications[]
 }
 
-// model PostReplyComment {
-//   id               String   @id @default(auto()) @map("_id") @db.ObjectId
-//   content          String
-//   userId           String
-//   questionId       Int
-//   createdAt        DateTime @default(now())
-//   updatedAt        DateTime @updatedAt
-//   user             String // User              @relation(fields: [userId], references: [uuid])
-//   question         String //Post              @relation(fields: [questionId], references: [id], onDelete: Cascade)
-//   questionComments String //PostComment[]
-// }
+model Logs {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  timestamp DateTime @default(now())
+  level     String //'info', 'warning', 'error'
+  ipAddress String
+  request   String
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model PostReplyComment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  images    String[]
+  videos    String[]
+  userId    String
+  commentId String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  comments     PostComment     @relation(fields: [commentId], references: [id])
+  user         User            @relation(fields: [userId], references: [id])
+  notification Notifications[]
+}
+
+model Notifications {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  like          Boolean  @default(false)
+  share         Boolean  @default(false)
+  userId        String
+  postId        String   @db.ObjectId
+  commentPostId String   @db.ObjectId
+  replycomentId String   @db.ObjectId
+  createdAt     DateTime @default(now())
+
+  comments     PostComment      @relation(fields: [commentPostId], references: [id])
+  replycomment PostReplyComment @relation(fields: [replycomentId], references: [id])
+  user         User             @relation(fields: [userId], references: [id])
+  post         Post             @relation(fields: [postId], references: [id])
+}

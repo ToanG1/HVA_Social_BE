@@ -10,27 +10,35 @@ export declare class PostCommentController {
         images: string[];
         videos: string[];
         userId: string;
-        isActivated: boolean;
+        postId: string;
         createdAt: Date;
         updatedAt: Date;
     }>;
     findAll(): string;
     findOne(id: string): Promise<{
         user: {
+            post: {
+                id: string;
+                content: string;
+                images: string[];
+                videos: string[];
+                userId: string;
+                isActivated: boolean;
+                createdAt: Date;
+                updatedAt: Date;
+            }[];
             name: string;
             id: string;
         };
     } & {
         id: string;
         content: string;
-        image: string;
-        video: string;
+        images: string[];
+        videos: string[];
         userId: string;
         postId: string;
-        postReplyId: number;
         createdAt: Date;
         updatedAt: Date;
-        postReply: string;
     }>;
     update(id: string, updatePostCommentDto: UpdatePostCommentDto, req: any): Promise<{
         id: string;
@@ -38,7 +46,7 @@ export declare class PostCommentController {
         images: string[];
         videos: string[];
         userId: string;
-        isActivated: boolean;
+        postId: string;
         createdAt: Date;
         updatedAt: Date;
     }>;

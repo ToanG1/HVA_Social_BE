@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const friendships_service_1 = require("./friendships.service");
 const create_friendship_dto_1 = require("./dto/create-friendship.dto");
 const update_friendship_dto_1 = require("./dto/update-friendship.dto");
+const auth_guard_1 = require("../../guard/auth.guard");
 let FriendshipsController = class FriendshipsController {
     constructor(friendshipsService) {
         this.friendshipsService = friendshipsService;
@@ -24,27 +25,39 @@ let FriendshipsController = class FriendshipsController {
     create(createFriendshipDto) {
         return this.friendshipsService.create(createFriendshipDto);
     }
+    search(id) {
+        return this.friendshipsService.search(id);
+    }
     findAll() {
         return this.friendshipsService.findAll();
     }
     findOne(id) {
-        return this.friendshipsService.findOne(+id);
+        return this.friendshipsService.findOne(id);
     }
     update(id, updateFriendshipDto) {
         return this.friendshipsService.update(+id, updateFriendshipDto);
     }
     remove(id) {
-        return this.friendshipsService.remove(+id);
+        return this.friendshipsService.remove(id);
     }
 };
 exports.FriendshipsController = FriendshipsController;
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_friendship_dto_1.CreateFriendshipDto]),
     __metadata("design:returntype", void 0)
 ], FriendshipsController.prototype, "create", null);
+__decorate([
+    (0, common_1.Get)(),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], FriendshipsController.prototype, "search", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

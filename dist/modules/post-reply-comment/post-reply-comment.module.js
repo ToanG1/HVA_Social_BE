@@ -10,13 +10,21 @@ exports.PostReplyCommentModule = void 0;
 const common_1 = require("@nestjs/common");
 const post_reply_comment_service_1 = require("./post-reply-comment.service");
 const post_reply_comment_controller_1 = require("./post-reply-comment.controller");
+const prisma_service_1 = require("../prisma/prisma.service");
+const user_service_1 = require("../user/user.service");
+const post_comment_service_1 = require("../post-comment/user/post-comment.service");
 let PostReplyCommentModule = class PostReplyCommentModule {
 };
 exports.PostReplyCommentModule = PostReplyCommentModule;
 exports.PostReplyCommentModule = PostReplyCommentModule = __decorate([
     (0, common_1.Module)({
         controllers: [post_reply_comment_controller_1.PostReplyCommentController],
-        providers: [post_reply_comment_service_1.PostReplyCommentService],
+        providers: [
+            post_reply_comment_service_1.PostReplyCommentService,
+            prisma_service_1.PrismaService,
+            user_service_1.UserService,
+            post_comment_service_1.PostCommentService,
+        ],
     })
 ], PostReplyCommentModule);
 //# sourceMappingURL=post-reply-comment.module.js.map

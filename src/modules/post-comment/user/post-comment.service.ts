@@ -6,11 +6,16 @@ import { PrismaService } from 'src/modules/prisma/prisma.service';
 @Injectable()
 export class PostCommentService {
   constructor(private readonly prismaService: PrismaService) {}
-  async create(createPostCommentDto: CreatePostCommentDto, userId: string) {
-    const commentpost = this.prismaService.post.create({
+  async create(
+    createPostCommentDto: CreatePostCommentDto,
+    userId: string,
+    postId: string,
+  ) {
+    const commentpost = this.prismaService.postComment.create({
       data: {
         content: createPostCommentDto.content,
         userId: userId,
+        postId: postId,
         videos: createPostCommentDto.video,
         images: createPostCommentDto.image,
         createdAt: new Date(),
@@ -19,17 +24,16 @@ export class PostCommentService {
     });
     return commentpost;
   }
-  async getCommentPost(userId: string) {
-    return this.prismaService.user.findUnique({
+  async getCommentPost(postId: string) {
+    return this.prismaService.post.findUnique({
       where: {
-        id: userId,
+        id: postId,
       },
       select: {
         id: true,
-        name: true,
-        email: true,
-        isAdmin: true,
-        userInfo: true,
+        content: true,
+        images: true,
+        videos: true,
       },
     });
   }
@@ -47,6 +51,7 @@ export class PostCommentService {
         user: {
           select: {
             name: true,
+            post: true,
             id: true,
           },
         },
@@ -59,7 +64,7 @@ export class PostCommentService {
     @Param('id') id: string,
     updatePostCommentDto: UpdatePostCommentDto,
   ) {
-    const commentpost = this.prismaService.post.update({
+    const commentpost = this.prismaService.postComment.update({
       where: {
         id: id,
       },

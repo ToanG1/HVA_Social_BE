@@ -34,6 +34,7 @@ export class PostController {
     return await this.postService.findAll();
   }
   @Get('search')
+  @UseGuards(AuthGuard)
   @UseInterceptors(PaginationInterceptor)
   async search(@Query('keyword') content: string) {
     return await this.postService.search(content);
@@ -45,6 +46,7 @@ export class PostController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard)
   async update(
     @Param('id') id: string,
     @Body() updatePostDto: UpdatePostDto,
@@ -67,9 +69,4 @@ export class PostController {
     }
     return this.postService.remove(id);
   }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.postService.remove(+id);
-  // }
 }
