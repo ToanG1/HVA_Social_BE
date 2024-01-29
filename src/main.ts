@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-
+import * as admin from 'firebase-admin';
+import * as path from 'path';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { ResponseFormattingInterceptor } from './interceptors/response-formatting.interceptor';
@@ -9,6 +10,13 @@ import { urlencoded, json } from 'express';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // app.setGlobalPrefix('api');
+
+  // Firebase cloud messaging
+  admin.initializeApp({
+    credential: admin.credential.cert(
+      path.join(__dirname, '..', 'firebase-adminsdk.json'),
+    ),
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({

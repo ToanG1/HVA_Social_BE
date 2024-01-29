@@ -17,12 +17,14 @@ import { AuthService } from './auth.service';
 import { LoginDto } from '../authDto/login.dto';
 import { AuthGuard } from 'src/guard/auth.guard';
 import { UserService } from '../../user/user.service';
-
+import { NotificationsService } from 'src/modules/notifications/notifications.service';
+import { CreateNotificationDto } from 'src/modules/notifications/dto/create-notification.dto';
 @Controller('api/auth')
 export class AuthController {
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private notificationService: NotificationsService,
   ) {}
 
   @Post('signup')
@@ -39,6 +41,9 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() signInDto: LoginDto) {
+    await this.notificationService.sendNotification(
+      new CreateNotificationDto('123', 'login', 'user login'),
+    );
     return this.authService.login(signInDto);
   }
 

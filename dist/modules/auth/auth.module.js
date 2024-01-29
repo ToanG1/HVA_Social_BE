@@ -15,12 +15,18 @@ const user_module_1 = require("../user/user.module");
 const jwt_1 = require("@nestjs/jwt");
 const prisma_service_1 = require("../prisma/prisma.service");
 const mail_sender_service_1 = require("../mail-sender/mail-sender.service");
+const notifications_service_1 = require("../notifications/notifications.service");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
-        providers: [auth_service_1.AuthService, prisma_service_1.PrismaService, mail_sender_service_1.MailSenderService],
+        providers: [
+            auth_service_1.AuthService,
+            prisma_service_1.PrismaService,
+            mail_sender_service_1.MailSenderService,
+            notifications_service_1.NotificationsService,
+        ],
         controllers: [auth_controller_1.AuthController, auth_admin_controller_1.AuthAdminController],
         imports: [
             user_module_1.UserModule,

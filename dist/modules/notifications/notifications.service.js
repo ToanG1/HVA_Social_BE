@@ -12,45 +12,49 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotificationsService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const admin = require("firebase-admin");
+const crypto_1 = require("crypto");
 let NotificationsService = class NotificationsService {
     constructor(prismaService) {
         this.prismaService = prismaService;
     }
-    create(createNotificationDto) {
-        return 'This action adds a new notification';
-    }
-    findAll() {
-        return `This action returns all notifications`;
-    }
-    findOne(id) {
-        return `This action returns a #${id} notification`;
-    }
-    update(id, updateNotificationDto) {
-        return `This action updates a #${id} notification`;
-    }
-    updateLike(id, updateNotificationDto) {
-        const updateLike = this.prismaService.notifications.update({
+    async sendNotification(createNotificationDto) {
+        const notification_token = await this.prismaService.notificationToken.upsert({
             where: {
-                id: id,
+                userId: createNotificationDto.userId,
             },
+            create: {
+                userId: createNotificationDto.userId,
+                token: (0, crypto_1.randomUUID)(),
+                device_type: 'default',
+                createdAt: new Date(),
+            },
+            update: {},
+        });
+        const createNotification = await this.prismaService.notifications.create({
             data: {
-                like: updateNotificationDto.like,
+                noti_token_id: notification_token.id,
+                title: createNotificationDto.title,
+                body: createNotificationDto.body,
                 createdAt: new Date(),
             },
         });
-        return updateLike;
-    }
-    remove(id, updateNotificationDto) {
-        const updatePostCommentLike = this.prismaService.notifications.update({
-            where: {
-                id: id,
+        admin
+            .messaging()
+            .send({
+            notification: {
+                title: createNotification.title,
+                body: createNotification.body,
             },
-            data: {
-                like: updateNotificationDto.like,
-                createdAt: new Date(),
-            },
+            token: notification_token.token,
+            android: { priority: 'high' },
+        })
+            .then((res) => {
+            console.log('finish', res);
+        })
+            .catch((error) => {
+            console.error(error);
         });
-        return updatePostCommentLike;
     }
 };
 exports.NotificationsService = NotificationsService;

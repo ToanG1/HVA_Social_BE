@@ -2,12 +2,17 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@nestjs/core");
 const swagger_1 = require("@nestjs/swagger");
+const admin = require("firebase-admin");
+const path = require("path");
 const app_module_1 = require("./app.module");
 const common_1 = require("@nestjs/common");
 const response_formatting_interceptor_1 = require("./interceptors/response-formatting.interceptor");
 const express_1 = require("express");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    admin.initializeApp({
+        credential: admin.credential.cert(path.join(__dirname, '..', 'firebase-adminsdk.json')),
+    });
     app.useGlobalPipes(new common_1.ValidationPipe({
         disableErrorMessages: true,
         whitelist: true,
