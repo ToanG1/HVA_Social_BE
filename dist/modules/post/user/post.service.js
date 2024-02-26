@@ -77,7 +77,7 @@ let PostService = class PostService {
     async findOne(id) {
         const q = await this.prismaService.post.findUnique({
             where: {
-                id: String(id),
+                id: id,
             },
             include: {
                 user: {
@@ -86,6 +86,7 @@ let PostService = class PostService {
                         id: true,
                     },
                 },
+                comments: true,
             },
         });
         return q;
@@ -138,7 +139,6 @@ let PostService = class PostService {
             where: {
                 content: {
                     contains: searchString,
-                    mode: 'insensitive',
                 },
             },
             include: {
@@ -153,7 +153,6 @@ let PostService = class PostService {
 };
 exports.PostService = PostService;
 __decorate([
-    __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_post_dto_1.UpdatePostDto]),

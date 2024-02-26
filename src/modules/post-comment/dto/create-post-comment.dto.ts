@@ -2,6 +2,12 @@ import { IsString, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreatePostCommentDto {
+  @IsString()
+  userId: string;
+
+  @IsString()
+  postId: string;
+
   @ApiProperty({
     description: 'content (in html) of the post commet',
     example: '<h1>hello</h1>',

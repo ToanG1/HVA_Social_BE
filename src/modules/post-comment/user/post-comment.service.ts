@@ -6,16 +6,12 @@ import { PrismaService } from 'src/modules/prisma/prisma.service';
 @Injectable()
 export class PostCommentService {
   constructor(private readonly prismaService: PrismaService) {}
-  async create(
-    createPostCommentDto: CreatePostCommentDto,
-    userId: string,
-    postId: string,
-  ) {
+  async create(createPostCommentDto: CreatePostCommentDto) {
     const commentpost = this.prismaService.postComment.create({
       data: {
         content: createPostCommentDto.content,
-        userId: userId,
-        postId: postId,
+        userId: createPostCommentDto.userId,
+        postId: createPostCommentDto.postId,
         videos: createPostCommentDto.video,
         images: createPostCommentDto.image,
         createdAt: new Date(),

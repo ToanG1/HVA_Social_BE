@@ -16,6 +16,14 @@ class CreatePostCommentDto {
 }
 exports.CreatePostCommentDto = CreatePostCommentDto;
 __decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePostCommentDto.prototype, "userId", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePostCommentDto.prototype, "postId", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({
         description: 'content (in html) of the post commet',
         example: '<h1>hello</h1>',

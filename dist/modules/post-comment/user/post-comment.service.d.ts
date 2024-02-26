@@ -4,7 +4,7 @@ import { PrismaService } from 'src/modules/prisma/prisma.service';
 export declare class PostCommentService {
     private readonly prismaService;
     constructor(prismaService: PrismaService);
-    create(createPostCommentDto: CreatePostCommentDto, userId: string, postId: string): Promise<{
+    create(createPostCommentDto: CreatePostCommentDto): Promise<{
         id: string;
         content: string;
         images: string[];

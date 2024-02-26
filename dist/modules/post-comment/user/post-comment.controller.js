@@ -17,12 +17,13 @@ const common_1 = require("@nestjs/common");
 const post_comment_service_1 = require("./post-comment.service");
 const create_post_comment_dto_1 = require("../dto/create-post-comment.dto");
 const update_post_comment_dto_1 = require("../dto/update-post-comment.dto");
+const auth_guard_1 = require("../../../guard/auth.guard");
 let PostCommentController = class PostCommentController {
     constructor(postCommentService) {
         this.postCommentService = postCommentService;
     }
     async create(createPostCommentDto, req) {
-        return await this.postCommentService.create(createPostCommentDto, req.user.sub, req.post.sub);
+        return await this.postCommentService.create(createPostCommentDto);
     }
     findAll() {
         return this.postCommentService.findAll();
@@ -48,6 +49,7 @@ let PostCommentController = class PostCommentController {
 exports.PostCommentController = PostCommentController;
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
@@ -69,6 +71,7 @@ __decorate([
 ], PostCommentController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Request)()),
@@ -78,6 +81,7 @@ __decorate([
 ], PostCommentController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
@@ -85,7 +89,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PostCommentController.prototype, "remove", null);
 exports.PostCommentController = PostCommentController = __decorate([
-    (0, common_1.Controller)('post-comment'),
+    (0, common_1.Controller)('api/post-comment'),
     __metadata("design:paramtypes", [post_comment_service_1.PostCommentService])
 ], PostCommentController);
 //# sourceMappingURL=post-comment.controller.js.map

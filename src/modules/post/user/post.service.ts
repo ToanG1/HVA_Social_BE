@@ -67,7 +67,7 @@ export class PostService {
   async findOne(id: string) {
     const q = await this.prismaService.post.findUnique({
       where: {
-        id: String(id),
+        id: id,
       },
       include: {
         user: {
@@ -76,6 +76,7 @@ export class PostService {
             id: true,
           },
         },
+        comments: true,
       },
     });
     return q;
@@ -95,7 +96,7 @@ export class PostService {
     });
   }
 
-  async update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
+  async update(id: string, @Body() updatePostDto: UpdatePostDto) {
     const post = this.prismaService.post.update({
       where: {
         id: id,
@@ -131,7 +132,6 @@ export class PostService {
       where: {
         content: {
           contains: searchString,
-          mode: 'insensitive',
         },
       },
       include: {

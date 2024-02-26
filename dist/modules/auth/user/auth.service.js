@@ -19,7 +19,7 @@ const dayjs = require("dayjs");
 const token_type_enum_1 = require("../../../utils/enums/token-type.enum");
 const mail_sender_service_1 = require("../../mail-sender/mail-sender.service");
 const crypto_1 = require("crypto");
-const JWT_ACCESS_TOKEN_EXPIRATION_TIME = '30m';
+const JWT_ACCESS_TOKEN_EXPIRATION_TIME = '2h';
 const JWT_REFRESH_TOKEN_EXPIRATION_TIME = '7d';
 const getRefreshExpiry = () => dayjs().add(7, 'd').toDate();
 const getResetCodeExpiry = () => dayjs().add(5, 'm').toDate();

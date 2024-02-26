@@ -20,12 +20,12 @@ let PostCommentService = class PostCommentService {
     constructor(prismaService) {
         this.prismaService = prismaService;
     }
-    async create(createPostCommentDto, userId, postId) {
+    async create(createPostCommentDto) {
         const commentpost = this.prismaService.postComment.create({
             data: {
                 content: createPostCommentDto.content,
-                userId: userId,
-                postId: postId,
+                userId: createPostCommentDto.userId,
+                postId: createPostCommentDto.postId,
                 videos: createPostCommentDto.video,
                 images: createPostCommentDto.image,
                 createdAt: new Date(),

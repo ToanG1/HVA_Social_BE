@@ -50,6 +50,16 @@ export declare class PostService {
             name: string;
             id: string;
         };
+        comments: {
+            id: string;
+            content: string;
+            images: string[];
+            videos: string[];
+            userId: string;
+            postId: string;
+            createdAt: Date;
+            updatedAt: Date;
+        }[];
     } & {
         id: string;
         content: string;
