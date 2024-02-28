@@ -33,7 +33,7 @@ export class PostController {
   async findAll() {
     return await this.postService.findAll();
   }
-  @Get('search')
+  @Get()
   @UseGuards(AuthGuard)
   @UseInterceptors(PaginationInterceptor)
   async search(@Query('keyword') content: string) {

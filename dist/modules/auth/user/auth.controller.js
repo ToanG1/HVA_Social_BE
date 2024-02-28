@@ -19,10 +19,12 @@ const auth_service_1 = require("./auth.service");
 const login_dto_1 = require("../authDto/login.dto");
 const auth_guard_1 = require("../../../guard/auth.guard");
 const user_service_1 = require("../../user/user.service");
+const notifications_service_1 = require("../../notifications/notifications.service");
 let AuthController = class AuthController {
-    constructor(authService, userService) {
+    constructor(authService, userService, notificationService) {
         this.authService = authService;
         this.userService = userService;
+        this.notificationService = notificationService;
     }
     async signUp(signUpDto) {
         return this.authService.signUp(signUpDto);
@@ -153,6 +155,7 @@ __decorate([
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('api/auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService,
-        user_service_1.UserService])
+        user_service_1.UserService,
+        notifications_service_1.NotificationsService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

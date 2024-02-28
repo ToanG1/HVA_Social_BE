@@ -2,10 +2,12 @@ import { CreateUserDto } from 'src/modules/user/userDTO/createUser.dto';
 import { AuthService } from './auth.service';
 import { LoginDto } from '../authDto/login.dto';
 import { UserService } from '../../user/user.service';
+import { NotificationsService } from 'src/modules/notifications/notifications.service';
 export declare class AuthController {
     private authService;
     private userService;
-    constructor(authService: AuthService, userService: UserService);
+    private notificationService;
+    constructor(authService: AuthService, userService: UserService, notificationService: NotificationsService);
     signUp(signUpDto: CreateUserDto): Promise<{
         access_token: string;
         refersh_token: string;

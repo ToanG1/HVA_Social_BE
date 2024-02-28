@@ -18,6 +18,7 @@ class UpdatePostDto extends (0, mapped_types_1.PartialType)(create_post_dto_1.Cr
 exports.UpdatePostDto = UpdatePostDto;
 __decorate([
     (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Boolean)
 ], UpdatePostDto.prototype, "isActivated", void 0);
 //# sourceMappingURL=update-post.dto.js.map

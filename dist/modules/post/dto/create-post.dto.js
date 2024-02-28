@@ -31,19 +31,17 @@ __decorate([
         description: 'link image of post',
         example: 'link image of post',
         required: true,
-        type: String,
     }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Array)
-], CreatePostDto.prototype, "image", void 0);
+], CreatePostDto.prototype, "images", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'link video of post',
         example: 'link video of post',
         required: true,
-        type: String,
     }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Array)
-], CreatePostDto.prototype, "video", void 0);
+], CreatePostDto.prototype, "videos", void 0);
 //# sourceMappingURL=create-post.dto.js.map

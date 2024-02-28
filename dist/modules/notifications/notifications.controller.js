@@ -15,78 +15,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotificationsController = void 0;
 const common_1 = require("@nestjs/common");
 const notifications_service_1 = require("./notifications.service");
-const create_notification_dto_1 = require("./dto/create-notification.dto");
-const update_notification_dto_1 = require("./dto/update-notification.dto");
+const create_notification_token_dto_1 = require("./dto/create-notification-token.dto");
+const auth_guard_1 = require("../../guard/auth.guard");
 let NotificationsController = class NotificationsController {
     constructor(notificationsService) {
         this.notificationsService = notificationsService;
     }
-    create(createNotificationDto) {
-        return this.notificationsService.create(createNotificationDto);
-    }
-    findAll() {
-        return this.notificationsService.findAll();
-    }
-    findOne(id) {
-        return this.notificationsService.findOne(+id);
-    }
-    update(id, updateNotificationDto) {
-        return this.notificationsService.update(+id, updateNotificationDto);
-    }
-    updateLikePost(id, updateNotificationDto) {
-        return this.notificationsService.update(+id, updateNotificationDto);
-    }
-    remove(id, updateNotificationDto) {
-        return this.notificationsService.remove(id, updateNotificationDto);
+    createNotificationToken(req, createNotificationToken) {
+        this.notificationsService.createNotificationToken(req.user.sub, createNotificationToken);
     }
 };
 exports.NotificationsController = NotificationsController;
 __decorate([
-    (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_notification_dto_1.CreateNotificationDto]),
-    __metadata("design:returntype", void 0)
-], NotificationsController.prototype, "create", null);
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], NotificationsController.prototype, "findAll", null);
-__decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], NotificationsController.prototype, "findOne", null);
-__decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Post)('create-token'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __param(0, (0, common_1.Request)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_notification_dto_1.UpdateNotificationDto]),
+    __metadata("design:paramtypes", [Object, create_notification_token_dto_1.CreateNotificationTokenDto]),
     __metadata("design:returntype", void 0)
-], NotificationsController.prototype, "update", null);
-__decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_notification_dto_1.UpdateNotificationDto]),
-    __metadata("design:returntype", void 0)
-], NotificationsController.prototype, "updateLikePost", null);
-__decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_notification_dto_1.UpdateNotificationDto]),
-    __metadata("design:returntype", void 0)
-], NotificationsController.prototype, "remove", null);
+], NotificationsController.prototype, "createNotificationToken", null);
 exports.NotificationsController = NotificationsController = __decorate([
-    (0, common_1.Controller)('notifications'),
+    (0, common_1.Controller)('api/noti'),
     __metadata("design:paramtypes", [notifications_service_1.NotificationsService])
 ], NotificationsController);
 //# sourceMappingURL=notifications.controller.js.map

@@ -6,8 +6,14 @@ import { UserModule } from 'src/modules/user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import { MailSenderService } from '../mail-sender/mail-sender.service';
+import { NotificationsService } from '../notifications/notifications.service';
 @Module({
-  providers: [AuthService, PrismaService, MailSenderService],
+  providers: [
+    AuthService,
+    PrismaService,
+    MailSenderService,
+    NotificationsService,
+  ],
   controllers: [AuthController, AuthAdminController],
   imports: [
     UserModule,

@@ -1,91 +1,77 @@
 import { Injectable } from '@nestjs/common';
-import { CreateNotificationDto } from './dto/create-notification.dto';
-import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import * as admin from 'firebase-admin';
+
+import { CreateNotificationDto } from './dto/create-notification.dto';
+import { CreateNotificationTokenDto } from './dto/create-notification-token.dto';
 
 @Injectable()
 export class NotificationsService {
   constructor(private readonly prismaService: PrismaService) {}
-  create(createNotificationDto: CreateNotificationDto) {
-    return 'This action adds a new notification';
-  }
+  async sendNotification(createNotificationDto: CreateNotificationDto) {
+    const notification_token =
+      await this.prismaService.notificationToken.findUnique({
+        where: {
+          userId_device_type: {
+            userId: createNotificationDto.userId,
+            device_type: createNotificationDto.device_type,
+          },
+        },
+        select: {
+          id: true,
+          token: true,
+        },
+      });
 
-  findAll() {
-    return `This action returns all notifications`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} notification`;
-  }
-
-  update(id: number, updateNotificationDto: UpdateNotificationDto) {
-    return `This action updates a #${id} notification`;
-  }
-  updateLike(id: string, updateNotificationDto: UpdateNotificationDto) {
-    const updateLike = this.prismaService.notifications.update({
-      where: {
-        id: id,
-      },
+    this.prismaService.notifications.create({
       data: {
-        like: updateNotificationDto.like,
+        noti_token_id: notification_token.id,
+        title: createNotificationDto.title,
+        body: createNotificationDto.body,
         createdAt: new Date(),
       },
     });
-    return updateLike;
-  }
-  // updatePostLike(id: string, updateNotificationDto: UpdateNotificationDto) {
-  //   const updateChat = this.prismaService.notifications.update({
-  //     where: {
-  //       id: id,
-  //     },
-  //     data: {
-  //       like: updateNotificationDto.like,
-  //       createdAt: new Date(),
-  //     },
-  //   });
-  //   return updateChat;
-  // }
-  // updatePostCommentLike(
-  //   id: string,
-  //   updateNotificationDto: UpdateNotificationDto,
-  // ) {
-  //   const updatePostCommentLike = this.prismaService.notifications.update({
-  //     where: {
-  //       id: id,
-  //     },
-  //     data: {
-  //       like: updateNotificationDto.like,
-  //       createdAt: new Date(),
-  //     },
-  //   });
-  //   return updatePostCommentLike;
-  // }
-  // updatePostReplyCommentLike(
-  //   id: string,
-  //   updateNotificationDto: UpdateNotificationDto,
-  // ) {
-  //   const updatePostCommentLike = this.prismaService.notifications.update({
-  //     where: {
-  //       id: id,
-  //     },
-  //     data: {
-  //       like: updateNotificationDto.like,
-  //       createdAt: new Date(),
-  //     },
-  //   });
-  //   return updatePostCommentLike;
-  // }
 
-  remove(id: string, updateNotificationDto: UpdateNotificationDto) {
-    const updatePostCommentLike = this.prismaService.notifications.update({
+    admin
+      .messaging()
+      .send({
+        notification: {
+          title: createNotificationDto.title,
+          body: createNotificationDto.body,
+        },
+        token: notification_token.token,
+        android: { priority: 'high' },
+      })
+      .then((res) => {
+        console.log('finish', res);
+      })
+      .catch((error: any) => {
+        console.error(error);
+      });
+  }
+
+  async createNotificationToken(
+    userId: string,
+    createNotificationToken: CreateNotificationTokenDto,
+  ) {
+    const notiToken = await this.prismaService.notificationToken.findUnique({
       where: {
-        id: id,
-      },
-      data: {
-        like: updateNotificationDto.like,
-        createdAt: new Date(),
+        userId_device_type: {
+          userId: userId,
+          device_type: createNotificationToken.device_type,
+        },
       },
     });
-    return updatePostCommentLike;
+    if (notiToken === null) {
+      const token = await this.prismaService.notificationToken.create({
+        data: {
+          userId: userId,
+          token: createNotificationToken.fcmToken,
+          device_type: createNotificationToken.device_type,
+          createdAt: new Date(),
+        },
+      });
+      console.log(token);
+    }
   }
 }
