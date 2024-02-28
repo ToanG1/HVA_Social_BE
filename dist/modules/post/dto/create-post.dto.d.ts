@@ -1,5 +1,5 @@
 export declare class CreatePostDto {
     content: string;
-    image: string[];
-    video: string[];
+    images: string[];
+    videos: string[];
 }

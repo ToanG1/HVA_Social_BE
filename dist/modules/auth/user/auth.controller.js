@@ -20,7 +20,6 @@ const login_dto_1 = require("../authDto/login.dto");
 const auth_guard_1 = require("../../../guard/auth.guard");
 const user_service_1 = require("../../user/user.service");
 const notifications_service_1 = require("../../notifications/notifications.service");
-const create_notification_dto_1 = require("../../notifications/dto/create-notification.dto");
 let AuthController = class AuthController {
     constructor(authService, userService, notificationService) {
         this.authService = authService;
@@ -36,7 +35,6 @@ let AuthController = class AuthController {
         return this.authService.activate(activationToken);
     }
     async login(signInDto) {
-        await this.notificationService.sendNotification(new create_notification_dto_1.CreateNotificationDto('123', 'login', 'user login'));
         return this.authService.login(signInDto);
     }
     refreshToken(refreshToken) {

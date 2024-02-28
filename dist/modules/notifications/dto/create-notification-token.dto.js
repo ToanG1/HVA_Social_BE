@@ -9,16 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdatePostDto = void 0;
-const mapped_types_1 = require("@nestjs/mapped-types");
-const create_post_dto_1 = require("./create-post.dto");
+exports.CreateNotificationTokenDto = void 0;
 const class_validator_1 = require("class-validator");
-class UpdatePostDto extends (0, mapped_types_1.PartialType)(create_post_dto_1.CreatePostDto) {
+class CreateNotificationTokenDto {
 }
-exports.UpdatePostDto = UpdatePostDto;
+exports.CreateNotificationTokenDto = CreateNotificationTokenDto;
 __decorate([
-    (0, class_validator_1.IsBoolean)(),
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", Boolean)
-], UpdatePostDto.prototype, "isActivated", void 0);
-//# sourceMappingURL=update-post.dto.js.map
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateNotificationTokenDto.prototype, "device_type", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateNotificationTokenDto.prototype, "fcmToken", void 0);
+//# sourceMappingURL=create-notification-token.dto.js.map

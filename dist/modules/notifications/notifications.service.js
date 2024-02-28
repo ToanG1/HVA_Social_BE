@@ -13,25 +13,24 @@ exports.NotificationsService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
 const admin = require("firebase-admin");
-const crypto_1 = require("crypto");
 let NotificationsService = class NotificationsService {
     constructor(prismaService) {
         this.prismaService = prismaService;
     }
     async sendNotification(createNotificationDto) {
-        const notification_token = await this.prismaService.notificationToken.upsert({
+        const notification_token = await this.prismaService.notificationToken.findUnique({
             where: {
-                userId: createNotificationDto.userId,
+                userId_device_type: {
+                    userId: createNotificationDto.userId,
+                    device_type: createNotificationDto.device_type,
+                },
             },
-            create: {
-                userId: createNotificationDto.userId,
-                token: (0, crypto_1.randomUUID)(),
-                device_type: 'default',
-                createdAt: new Date(),
+            select: {
+                id: true,
+                token: true,
             },
-            update: {},
         });
-        const createNotification = await this.prismaService.notifications.create({
+        this.prismaService.notifications.create({
             data: {
                 noti_token_id: notification_token.id,
                 title: createNotificationDto.title,
@@ -43,8 +42,8 @@ let NotificationsService = class NotificationsService {
             .messaging()
             .send({
             notification: {
-                title: createNotification.title,
-                body: createNotification.body,
+                title: createNotificationDto.title,
+                body: createNotificationDto.body,
             },
             token: notification_token.token,
             android: { priority: 'high' },
@@ -55,6 +54,27 @@ let NotificationsService = class NotificationsService {
             .catch((error) => {
             console.error(error);
         });
+    }
+    async createNotificationToken(userId, createNotificationToken) {
+        const notiToken = await this.prismaService.notificationToken.findUnique({
+            where: {
+                userId_device_type: {
+                    userId: userId,
+                    device_type: createNotificationToken.device_type,
+                },
+            },
+        });
+        if (notiToken === null) {
+            const token = await this.prismaService.notificationToken.create({
+                data: {
+                    userId: userId,
+                    token: createNotificationToken.fcmToken,
+                    device_type: createNotificationToken.device_type,
+                    createdAt: new Date(),
+                },
+            });
+            console.log(token);
+        }
     }
 };
 exports.NotificationsService = NotificationsService;

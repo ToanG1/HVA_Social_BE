@@ -21,17 +21,16 @@ let PostService = class PostService {
         this.prismaService = prismaService;
     }
     async create(createPostDto, userId) {
-        const post = this.prismaService.post.create({
+        return await this.prismaService.post.create({
             data: {
                 content: createPostDto.content,
                 userId: userId,
-                videos: createPostDto.video,
-                images: createPostDto.image,
+                videos: createPostDto.videos,
+                images: createPostDto.images,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
         });
-        return post;
     }
     async getPost(userId) {
         return this.prismaService.user.findUnique({
@@ -77,7 +76,7 @@ let PostService = class PostService {
     async findOne(id) {
         const q = await this.prismaService.post.findUnique({
             where: {
-                id: String(id),
+                id,
             },
             include: {
                 user: {
@@ -111,9 +110,8 @@ let PostService = class PostService {
             },
             data: {
                 content: updatePostDto.content || undefined,
-                userId: id,
-                videos: updatePostDto.video,
-                images: updatePostDto.image,
+                videos: updatePostDto.videos || undefined,
+                images: updatePostDto.images || undefined,
                 updatedAt: new Date(),
             },
         });
