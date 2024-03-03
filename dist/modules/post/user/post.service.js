@@ -46,9 +46,6 @@ let PostService = class PostService {
             },
         });
     }
-    async updatePost(id, updatePost) {
-        const foundUser = await this.findUserById(id);
-    }
     async findUserById(id) {
         return await this.prismaService.post.findUnique({
             where: {

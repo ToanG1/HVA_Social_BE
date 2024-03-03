@@ -19,12 +19,20 @@ const create_post_dto_1 = require("../dto/create-post.dto");
 const update_post_dto_1 = require("../dto/update-post.dto");
 const pagination_interceptors_1 = require("../../../interceptors/pagination.interceptors");
 const auth_guard_1 = require("../../../guard/auth.guard");
+const nsfw_api_service_1 = require("../../ai-api/nsfw-content/nsfw-api.service");
+const function_code_enum_1 = require("../../../utils/enums/function-code.enum");
 let PostController = class PostController {
-    constructor(postService) {
+    constructor(postService, nsfwApiService) {
         this.postService = postService;
+        this.nsfwApiService = nsfwApiService;
     }
     async create(createPostDto, req) {
-        return await this.postService.create(createPostDto, req.user.sub);
+        const post = await this.postService.create(createPostDto, req.user.sub);
+        if (await this.checkNSFWPost(post, req.user.sub)) {
+            return post;
+        }
+        await this.postService.remove(post.id);
+        throw new common_1.NotAcceptableException('Your post violated our Community Standard for NSFW content');
     }
     async findAll() {
         return await this.postService.findAll();
@@ -40,7 +48,12 @@ let PostController = class PostController {
         if (post.user.id !== req.user.sub) {
             throw new common_1.ForbiddenException();
         }
-        return this.postService.update(id, updatePostDto);
+        const updatedPost = await this.postService.update(id, updatePostDto);
+        if (this.checkNSFWPost(updatedPost, req.user.sub)) {
+            return updatedPost;
+        }
+        await this.postService.remove(updatedPost.id);
+        throw new common_1.NotAcceptableException('Your post violated our Community Standard for NSFW content');
     }
     async remove(id, req) {
         const post = await this.postService.findOne(id);
@@ -48,6 +61,40 @@ let PostController = class PostController {
             throw new common_1.ForbiddenException();
         }
         return this.postService.remove(id);
+    }
+    async checkNSFWPost(post, userId) {
+        if (!post) {
+            return false;
+        }
+        if (post.content) {
+            const resultText = await this.nsfwApiService.checkNSFWContent({
+                content: post.content,
+                priority: 'high',
+                type: 'text',
+                userId: userId,
+                functionCode: function_code_enum_1.FunctionCode.POST,
+                idObject: post.id,
+            });
+            if (resultText.isBanned) {
+                return false;
+            }
+        }
+        if (post.images) {
+            return post.images.forEach(async (image) => {
+                const resultImage = await this.nsfwApiService.checkNSFWContent({
+                    content: image,
+                    priority: 'high',
+                    type: 'image',
+                    userId: userId,
+                    functionCode: function_code_enum_1.FunctionCode.POST,
+                    idObject: post.id,
+                });
+                if (resultImage.isBanned) {
+                    return false;
+                }
+            });
+        }
+        return true;
     }
 };
 exports.PostController = PostController;
@@ -104,6 +151,7 @@ __decorate([
 ], PostController.prototype, "remove", null);
 exports.PostController = PostController = __decorate([
     (0, common_1.Controller)('api/post'),
-    __metadata("design:paramtypes", [post_service_1.PostService])
+    __metadata("design:paramtypes", [post_service_1.PostService,
+        nsfw_api_service_1.NSFWApiService])
 ], PostController);
 //# sourceMappingURL=post.controller.js.map

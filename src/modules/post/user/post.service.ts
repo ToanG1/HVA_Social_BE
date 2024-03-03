@@ -35,9 +35,7 @@ export class PostService {
       },
     });
   }
-  async updatePost(id: string, updatePost: UpdatePostDto) {
-    const foundUser = await this.findUserById(id);
-  }
+
   async findUserById(id: string): Promise<Post | null | undefined> {
     return await this.prismaService.post.findUnique({
       where: {
