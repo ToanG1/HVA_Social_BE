@@ -9,12 +9,10 @@ import { FriendshipsModule } from './modules/friendships/friendships.module';
 import { GroupsModule } from './modules/groups/groups.module';
 import { ChatsModule } from './modules/chats/chats.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
-import { AdManagementModule } from './modules/ad-management/ad-management.module';
-import { AdCategoriesModule } from './modules/ad-categories/ad-categories.module';
 import { LogsModule } from './modules/logs/logs.module';
 import { MailSenderModule } from './modules/mail-sender/mail-sender.module';
 import { AuthModule } from './modules/auth/auth.module';
-
+import { AiApiModule } from './modules/ai-api/ai-api.module';
 @Module({
   imports: [
     UserModule,
@@ -25,11 +23,10 @@ import { AuthModule } from './modules/auth/auth.module';
     GroupsModule,
     ChatsModule,
     NotificationsModule,
-    AdManagementModule,
-    AdCategoriesModule,
     LogsModule,
     MailSenderModule,
     AuthModule,
+    AiApiModule,
   ],
   controllers: [AppController],
   providers: [AppService],

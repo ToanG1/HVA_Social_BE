@@ -18,11 +18,10 @@ const friendships_module_1 = require("./modules/friendships/friendships.module")
 const groups_module_1 = require("./modules/groups/groups.module");
 const chats_module_1 = require("./modules/chats/chats.module");
 const notifications_module_1 = require("./modules/notifications/notifications.module");
-const ad_management_module_1 = require("./modules/ad-management/ad-management.module");
-const ad_categories_module_1 = require("./modules/ad-categories/ad-categories.module");
 const logs_module_1 = require("./modules/logs/logs.module");
 const mail_sender_module_1 = require("./modules/mail-sender/mail-sender.module");
 const auth_module_1 = require("./modules/auth/auth.module");
+const ai_api_module_1 = require("./modules/ai-api/ai-api.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -37,11 +36,10 @@ exports.AppModule = AppModule = __decorate([
             groups_module_1.GroupsModule,
             chats_module_1.ChatsModule,
             notifications_module_1.NotificationsModule,
-            ad_management_module_1.AdManagementModule,
-            ad_categories_module_1.AdCategoriesModule,
             logs_module_1.LogsModule,
             mail_sender_module_1.MailSenderModule,
             auth_module_1.AuthModule,
+            ai_api_module_1.AiApiModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

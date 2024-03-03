@@ -1,9 +1,11 @@
 import { PostService } from './post.service';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
+import { NSFWApiService } from 'src/modules/ai-api/nsfw-content/nsfw-api.service';
 export declare class PostController {
     private readonly postService;
-    constructor(postService: PostService);
+    private readonly nsfwApiService;
+    constructor(postService: PostService, nsfwApiService: NSFWApiService);
     create(createPostDto: CreatePostDto, req: any): Promise<{
         id: string;
         content: string;
@@ -68,4 +70,5 @@ export declare class PostController {
         updatedAt: Date;
     }>;
     remove(id: string, req: any): Promise<string>;
+    checkNSFWPost(post: any, userId: string): Promise<any>;
 }

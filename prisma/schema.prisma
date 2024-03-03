@@ -27,6 +27,7 @@ model User {
   logs              Logs[]
   replycomment      PostReplyComment[]
   NotificationToken NotificationToken[]
+  ViolationSC       ViolationSC[]
 }
 
 model Chats {
@@ -160,11 +161,22 @@ model Notifications {
 model NotificationToken {
   id           String          @id @default(auto()) @map("_id") @db.ObjectId
   user         User            @relation(fields: [userId], references: [id])
-  userId       String          
+  userId       String
   device_type  String
   token        String
   isActive     Boolean         @default(true)
   createdAt    DateTime
   notification Notifications[]
+
   @@unique([userId, device_type])
+}
+
+model ViolationSC {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+  functionCode String
+  idObject String
+  reason   String
+  createdAt DateTime @default(now())
 }
