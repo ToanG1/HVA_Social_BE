@@ -28,7 +28,7 @@ let PostController = class PostController {
     }
     async create(createPostDto, req) {
         const post = await this.postService.create(createPostDto, req.user.sub);
-        if (await this.checkNSFWPost(post, req.user.sub)) {
+        if (!(await this.checkNSFWPost(post, req.user.sub))) {
             return post;
         }
         await this.postService.remove(post.id);
