@@ -14,14 +14,13 @@ const user_module_1 = require("./modules/user/user.module");
 const post_module_1 = require("./modules/post/post.module");
 const post_comment_module_1 = require("./modules/post-comment/post-comment.module");
 const post_reply_comment_module_1 = require("./modules/post-reply-comment/post-reply-comment.module");
-const friendships_module_1 = require("./modules/friendships/friendships.module");
-const groups_module_1 = require("./modules/groups/groups.module");
-const chats_module_1 = require("./modules/chats/chats.module");
 const notifications_module_1 = require("./modules/notifications/notifications.module");
 const logs_module_1 = require("./modules/logs/logs.module");
 const mail_sender_module_1 = require("./modules/mail-sender/mail-sender.module");
 const auth_module_1 = require("./modules/auth/auth.module");
 const ai_api_module_1 = require("./modules/ai-api/ai-api.module");
+const chat_module_1 = require("./modules/chat/chat.module");
+const minio_client_module_1 = require("./modules/minio-client/minio-client.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -32,14 +31,13 @@ exports.AppModule = AppModule = __decorate([
             post_module_1.PostModule,
             post_comment_module_1.PostCommentModule,
             post_reply_comment_module_1.PostReplyCommentModule,
-            friendships_module_1.FriendshipsModule,
-            groups_module_1.GroupsModule,
-            chats_module_1.ChatsModule,
             notifications_module_1.NotificationsModule,
             logs_module_1.LogsModule,
             mail_sender_module_1.MailSenderModule,
+            minio_client_module_1.MinioClientModule,
             auth_module_1.AuthModule,
             ai_api_module_1.AiApiModule,
+            chat_module_1.ChatModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
