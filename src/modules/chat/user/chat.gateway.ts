@@ -8,6 +8,8 @@ import { Server } from 'socket.io';
 import { ChatService } from './chat.service';
 import { CreateChatDto } from '../dto/create-chat.dto';
 import { TypingDto } from '../dto/typing.dto';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/guard/auth.guard';
 
 @WebSocketGateway({
   cors: {
@@ -20,6 +22,7 @@ export class ChatGateway {
   @WebSocketServer()
   server: Server;
 
+  @UseGuards(AuthGuard)
   @SubscribeMessage('sendMessage')
   async create(@MessageBody() createChatDto: CreateChatDto) {
     this.server
@@ -27,6 +30,7 @@ export class ChatGateway {
       .emit('message', await this.chatService.createChat(createChatDto));
   }
 
+  @UseGuards(AuthGuard)
   @SubscribeMessage('typing')
   typing(@MessageBody() typingDto: TypingDto) {
     this.server.to(typingDto.chatRoomId).emit('typing', typingDto);
