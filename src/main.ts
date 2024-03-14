@@ -9,7 +9,7 @@ import { urlencoded, json } from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // app.setGlobalPrefix('api');
+  app.setGlobalPrefix('api');
 
   // Firebase cloud messaging
   admin.initializeApp({

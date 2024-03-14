@@ -6,86 +6,81 @@ import { PrismaService } from 'src/modules/prisma/prisma.service';
 @Injectable()
 export class PostCommentService {
   constructor(private readonly prismaService: PrismaService) {}
-  async create(
-    createPostCommentDto: CreatePostCommentDto,
-    userId: string,
-    postId: string,
-  ) {
-    const commentpost = this.prismaService.postComment.create({
+  async create(createPostCommentDto: CreatePostCommentDto, userId: string) {
+    return await this.prismaService.postComment.create({
       data: {
         content: createPostCommentDto.content,
         userId: userId,
-        postId: postId,
-        videos: createPostCommentDto.video,
-        images: createPostCommentDto.image,
+        postId: createPostCommentDto.postId,
+        videos: createPostCommentDto.videos,
+        images: createPostCommentDto.images,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
     });
-    return commentpost;
   }
-  async getCommentPost(postId: string) {
-    return this.prismaService.post.findUnique({
+
+  async findOne(id: string) {
+    return await this.prismaService.postComment.findUnique({
       where: {
-        id: postId,
+        id,
+      },
+      select: {
+        userId: true,
+      },
+    });
+  }
+
+  async getCommentPost(postId: string) {
+    return await this.prismaService.postComment.findMany({
+      where: {
+        postId: postId,
       },
       select: {
         id: true,
         content: true,
-        images: true,
-        videos: true,
-      },
-    });
-  }
-
-  findAll() {
-    return `This action returns all postComment`;
-  }
-
-  async findOne(id: string) {
-    const q = await this.prismaService.postComment.findUnique({
-      where: {
-        id: String(id),
-      },
-      include: {
         user: {
           select: {
             name: true,
-            post: true,
-            id: true,
+            userInfo: {
+              select: {
+                avatar: true,
+              },
+            },
           },
         },
+        images: true,
+        videos: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     });
-    return q;
   }
 
   async update(
     @Param('id') id: string,
     updatePostCommentDto: UpdatePostCommentDto,
   ) {
-    const commentpost = this.prismaService.postComment.update({
+    return await this.prismaService.postComment.update({
       where: {
-        id: id,
+        id,
       },
       data: {
         content: updatePostCommentDto.content || undefined,
-        userId: id,
-        videos: updatePostCommentDto.video,
-        images: updatePostCommentDto.image,
+        videos: updatePostCommentDto.videos || undefined,
+        images: updatePostCommentDto.images || undefined,
         updatedAt: new Date(),
       },
     });
-    return commentpost;
   }
 
-  async remove(Id: string) {
-    const deletecomment = this.prismaService.postComment.deleteMany({
+  async remove(id: string) {
+    await this.prismaService.postComment.delete({
       where: {
-        id: String(Id),
+        id,
       },
     });
-    await this.prismaService.$transaction([deletecomment]);
     return 'success';
   }
 }

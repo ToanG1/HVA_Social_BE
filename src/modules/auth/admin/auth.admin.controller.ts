@@ -11,7 +11,7 @@ import { LoginDto } from '../authDto/login.dto';
 import { AuthService } from '../user/auth.service';
 import { AdminAuthGuard } from 'src/guard/adminAuth.guard';
 
-@Controller('api/admin/auth')
+@Controller('admin/auth')
 export class AuthAdminController {
   constructor(private readonly authService: AuthService) {}
 

@@ -1,5 +1,6 @@
 export declare class CreatePostCommentDto {
+    postId: string;
     content: string;
-    image: string[];
-    video: string[];
+    images: string[];
+    videos: string[];
 }

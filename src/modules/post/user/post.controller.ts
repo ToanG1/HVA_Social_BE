@@ -21,7 +21,7 @@ import { AuthGuard } from 'src/guard/auth.guard';
 import { NSFWApiService } from 'src/modules/ai-api/nsfw-content/nsfw-api.service';
 import { FunctionCode } from 'src/utils/enums/function-code.enum';
 
-@Controller('api/post')
+@Controller('post')
 export class PostController {
   constructor(
     private readonly postService: PostService,
@@ -47,6 +47,7 @@ export class PostController {
   async findAll() {
     return await this.postService.findAll();
   }
+
   @Get()
   @UseGuards(AuthGuard)
   @UseInterceptors(PaginationInterceptor)

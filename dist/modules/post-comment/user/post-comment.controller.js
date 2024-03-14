@@ -17,29 +17,32 @@ const common_1 = require("@nestjs/common");
 const post_comment_service_1 = require("./post-comment.service");
 const create_post_comment_dto_1 = require("../dto/create-post-comment.dto");
 const update_post_comment_dto_1 = require("../dto/update-post-comment.dto");
+const pagination_interceptors_1 = require("../../../interceptors/pagination.interceptors");
+const auth_guard_1 = require("../../../guard/auth.guard");
 let PostCommentController = class PostCommentController {
     constructor(postCommentService) {
         this.postCommentService = postCommentService;
     }
     async create(createPostCommentDto, req) {
-        return await this.postCommentService.create(createPostCommentDto, req.user.sub, req.post.sub);
+        return await this.postCommentService.create(createPostCommentDto, req.user.sub);
     }
-    findAll() {
-        return this.postCommentService.findAll();
-    }
-    findOne(id) {
-        return this.postCommentService.findOne(id);
+    findCommentsOfPost(id) {
+        return this.postCommentService.getCommentPost(id);
     }
     async update(id, updatePostCommentDto, req) {
-        const post = await this.postCommentService.findOne(id);
-        if (post.user.id !== req.user.sub) {
+        const commentpost = await this.postCommentService.findOne(id);
+        if (!commentpost)
+            throw new common_1.ForbiddenException();
+        if (commentpost.userId !== req.user.sub) {
             throw new common_1.ForbiddenException();
         }
         return this.postCommentService.update(id, updatePostCommentDto);
     }
     async remove(id, req) {
         const commentpost = await this.postCommentService.findOne(id);
-        if (commentpost.user.id !== req.user.sub) {
+        if (!commentpost)
+            throw new common_1.ForbiddenException();
+        if (commentpost.userId !== req.user.sub) {
             throw new common_1.ForbiddenException();
         }
         return this.postCommentService.remove(id);
@@ -55,18 +58,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PostCommentController.prototype, "create", null);
 __decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], PostCommentController.prototype, "findAll", null);
-__decorate([
     (0, common_1.Get)(':id'),
+    (0, common_1.UseInterceptors)(pagination_interceptors_1.PaginationInterceptor),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], PostCommentController.prototype, "findOne", null);
+], PostCommentController.prototype, "findCommentsOfPost", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),
@@ -86,6 +84,7 @@ __decorate([
 ], PostCommentController.prototype, "remove", null);
 exports.PostCommentController = PostCommentController = __decorate([
     (0, common_1.Controller)('post-comment'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __metadata("design:paramtypes", [post_comment_service_1.PostCommentService])
 ], PostCommentController);
 //# sourceMappingURL=post-comment.controller.js.map

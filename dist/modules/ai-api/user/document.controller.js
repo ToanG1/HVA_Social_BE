@@ -42,7 +42,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], DocumentController.prototype, "summarizeDocument", null);
 exports.DocumentController = DocumentController = __decorate([
-    (0, common_1.Controller)('api/ai/document'),
+    (0, common_1.Controller)('ai/document'),
     __metadata("design:paramtypes", [document_ai_api_service_1.DocumentAiApiService])
 ], DocumentController);
 //# sourceMappingURL=document.controller.js.map

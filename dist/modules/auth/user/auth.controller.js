@@ -153,7 +153,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "changePassword", null);
 exports.AuthController = AuthController = __decorate([
-    (0, common_1.Controller)('api/auth'),
+    (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService,
         user_service_1.UserService,
         notifications_service_1.NotificationsService])

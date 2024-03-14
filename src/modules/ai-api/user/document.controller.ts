@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { DocumentAiApiService } from './document-ai-api.service';
 
-@Controller('api/ai/document')
+@Controller('ai/document')
 export class DocumentController {
   constructor(private readonly documentService: DocumentAiApiService) {}
 

@@ -17,7 +17,7 @@ import { PaginationInterceptor } from 'src/interceptors/pagination.interceptors'
 import { CreateChatRoomDto } from '../dto/create-chat-room.dto';
 import { CreateChatUserDto } from '../dto/create-chat-user.dto';
 
-@Controller('api/chat')
+@Controller('chat')
 @UseGuards(AuthGuard)
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}

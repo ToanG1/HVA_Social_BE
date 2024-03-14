@@ -15,7 +15,6 @@ export class CreatePostDto {
   @ApiProperty({
     description: 'link image of post',
     example: 'link image of post',
-    required: true,
   })
   @IsOptional()
   images: string[];
@@ -23,7 +22,6 @@ export class CreatePostDto {
   @ApiProperty({
     description: 'link video of post',
     example: 'link video of post',
-    required: true,
   })
   @IsOptional()
   videos: string[];

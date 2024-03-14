@@ -81,14 +81,11 @@ model PostComment {
   videos    String[]
   userId    String
   postId    String   @db.ObjectId
-  // commentReplyId      String // Nullable as it's an ID
-  //contentCommentReply String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relationships
   user         User               @relation(fields: [userId], references: [id])
-  post         Post               @relation(fields: [postId], references: [id])
+  post         Post               @relation(fields: [postId], references: [id], onDelete: Cascade)
   commentReply PostReplyComment[]
 }
 
@@ -113,7 +110,7 @@ model PostReplyComment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  comments PostComment @relation(fields: [commentId], references: [id])
+  comments PostComment @relation(fields: [commentId], references: [id], onDelete: Cascade)
   user     User        @relation(fields: [userId], references: [id])
 }
 

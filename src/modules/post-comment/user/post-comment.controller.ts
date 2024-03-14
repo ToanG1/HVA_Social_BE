@@ -8,6 +8,8 @@ import {
   Param,
   Delete,
   ForbiddenException,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { PostCommentService } from './post-comment.service';
 import { CreatePostCommentDto } from '../dto/create-post-comment.dto';
@@ -16,6 +18,7 @@ import { PaginationInterceptor } from 'src/interceptors/pagination.interceptors'
 import { AuthGuard } from 'src/guard/auth.guard';
 
 @Controller('post-comment')
+@UseGuards(AuthGuard)
 export class PostCommentController {
   constructor(private readonly postCommentService: PostCommentService) {}
 
@@ -27,18 +30,13 @@ export class PostCommentController {
     return await this.postCommentService.create(
       createPostCommentDto,
       req.user.sub,
-      req.post.sub,
     );
   }
 
-  @Get()
-  findAll() {
-    return this.postCommentService.findAll();
-  }
-
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postCommentService.findOne(id);
+  @UseInterceptors(PaginationInterceptor)
+  findCommentsOfPost(@Param('id') id: string) {
+    return this.postCommentService.getCommentPost(id);
   }
 
   @Patch(':id')
@@ -47,8 +45,11 @@ export class PostCommentController {
     @Body() updatePostCommentDto: UpdatePostCommentDto,
     @Request() req: any,
   ) {
-    const post = await this.postCommentService.findOne(id);
-    if (post.user.id !== req.user.sub) {
+    const commentpost = await this.postCommentService.findOne(id);
+
+    if (!commentpost) throw new ForbiddenException();
+
+    if (commentpost.userId !== req.user.sub) {
       throw new ForbiddenException();
     }
     return this.postCommentService.update(id, updatePostCommentDto);
@@ -57,7 +58,10 @@ export class PostCommentController {
   @Delete(':id')
   async remove(@Param('id') id: string, @Request() req: any) {
     const commentpost = await this.postCommentService.findOne(id);
-    if (commentpost.user.id !== req.user.sub) {
+
+    if (!commentpost) throw new ForbiddenException();
+
+    if (commentpost.userId !== req.user.sub) {
       throw new ForbiddenException();
     }
     return this.postCommentService.remove(id);

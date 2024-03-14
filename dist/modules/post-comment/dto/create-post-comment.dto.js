@@ -16,30 +16,33 @@ class CreatePostCommentDto {
 }
 exports.CreatePostCommentDto = CreatePostCommentDto;
 __decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreatePostCommentDto.prototype, "postId", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({
-        description: 'content (in html) of the post commet',
-        example: '<h1>hello</h1>',
-        type: String,
+        description: 'content of the post comment',
+        example: 'hello',
     }),
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreatePostCommentDto.prototype, "content", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'link image of post',
         example: 'link image of post',
-        required: true,
-        type: String,
     }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Array)
-], CreatePostCommentDto.prototype, "image", void 0);
+], CreatePostCommentDto.prototype, "images", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'link video of post',
         example: 'link video of post',
-        required: true,
-        type: String,
     }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Array)
-], CreatePostCommentDto.prototype, "video", void 0);
+], CreatePostCommentDto.prototype, "videos", void 0);
 //# sourceMappingURL=create-post-comment.dto.js.map

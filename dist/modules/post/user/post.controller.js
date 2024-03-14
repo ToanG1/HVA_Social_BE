@@ -150,7 +150,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PostController.prototype, "remove", null);
 exports.PostController = PostController = __decorate([
-    (0, common_1.Controller)('api/post'),
+    (0, common_1.Controller)('post'),
     __metadata("design:paramtypes", [post_service_1.PostService,
         nsfw_api_service_1.NSFWApiService])
 ], PostController);

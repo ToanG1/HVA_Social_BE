@@ -4,7 +4,7 @@ import { PrismaService } from 'src/modules/prisma/prisma.service';
 export declare class PostCommentService {
     private readonly prismaService;
     constructor(prismaService: PrismaService);
-    create(createPostCommentDto: CreatePostCommentDto, userId: string, postId: string): Promise<{
+    create(createPostCommentDto: CreatePostCommentDto, userId: string): Promise<{
         id: string;
         content: string;
         images: string[];
@@ -13,39 +13,22 @@ export declare class PostCommentService {
         postId: string;
         createdAt: Date;
         updatedAt: Date;
+    }>;
+    findOne(id: string): Promise<{
+        userId: string;
     }>;
     getCommentPost(postId: string): Promise<{
         id: string;
         content: string;
         images: string[];
         videos: string[];
-    }>;
-    findAll(): string;
-    findOne(id: string): Promise<{
         user: {
-            post: {
-                id: string;
-                content: string;
-                images: string[];
-                videos: string[];
-                userId: string;
-                isActivated: boolean;
-                createdAt: Date;
-                updatedAt: Date;
-            }[];
             name: string;
-            id: string;
+            userInfo: {
+                avatar: string;
+            };
         };
-    } & {
-        id: string;
-        content: string;
-        images: string[];
-        videos: string[];
-        userId: string;
-        postId: string;
-        createdAt: Date;
-        updatedAt: Date;
-    }>;
+    }[]>;
     update(id: string, updatePostCommentDto: UpdatePostCommentDto): Promise<{
         id: string;
         content: string;
@@ -56,5 +39,5 @@ export declare class PostCommentService {
         createdAt: Date;
         updatedAt: Date;
     }>;
-    remove(Id: string): Promise<string>;
+    remove(id: string): Promise<string>;
 }
