@@ -21,7 +21,8 @@ model User {
   comments          PostComment[]
   tokens            Token[]
   userInfo          UserInfo?
-  follow            Follow[]
+  follower          Follow[]            @relation(name: "follower")
+  followed          Follow[]            @relation(name: "followed")
   logs              Logs[]
   replycomment      PostReplyComment[]
   NotificationToken NotificationToken[]
@@ -55,9 +56,12 @@ model UserInfo {
 
 model Follow {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  followerId String   @unique
+  follower   User     @relation(name: "follower", fields: [followerId], references: [id])
+  followerId String
+  followed   User     @relation(name: "followed", fields: [followedId], references: [id])
+  followedId String
   createdAt  DateTime @default(now())
-  follower   User     @relation(fields: [followerId], references: [id])
+  @@unique([followerId, followedId])
 }
 
 model Post {

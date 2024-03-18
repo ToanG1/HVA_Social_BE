@@ -12,6 +12,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { AiApiModule } from './modules/ai-api/ai-api.module';
 import { ChatModule } from './modules/chat/chat.module';
 import { MinioClientModule } from './modules/minio-client/minio-client.module';
+import { FollowModule } from './modules/follow/follow.module';
 @Module({
   imports: [
     UserModule,
@@ -25,6 +26,7 @@ import { MinioClientModule } from './modules/minio-client/minio-client.module';
     AuthModule,
     AiApiModule,
     ChatModule,
+    FollowModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -18,16 +18,16 @@ export declare class PostCommentService {
         userId: string;
     }>;
     getCommentPost(postId: string): Promise<{
+        user: {
+            userInfo: {
+                avatar: string;
+            };
+            name: string;
+        };
         id: string;
         content: string;
         images: string[];
         videos: string[];
-        user: {
-            name: string;
-            userInfo: {
-                avatar: string;
-            };
-        };
     }[]>;
     update(id: string, updatePostCommentDto: UpdatePostCommentDto): Promise<{
         id: string;
