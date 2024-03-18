@@ -21,7 +21,8 @@ model User {
   comments          PostComment[]
   tokens            Token[]
   userInfo          UserInfo?
-  follow            Follow[]
+  follower          Follow[]            @relation(name: "follower")
+  followed          Follow[]            @relation(name: "followed")
   logs              Logs[]
   replycomment      PostReplyComment[]
   NotificationToken NotificationToken[]
@@ -55,9 +56,12 @@ model UserInfo {
 
 model Follow {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  followerId String   @unique
+  follower   User     @relation(name: "follower", fields: [followerId], references: [id])
+  followerId String
+  followed   User     @relation(name: "followed", fields: [followedId], references: [id])
+  followedId String
   createdAt  DateTime @default(now())
-  follower   User     @relation(fields: [followerId], references: [id])
+  @@unique([followerId, followedId])
 }
 
 model Post {
@@ -81,14 +85,11 @@ model PostComment {
   videos    String[]
   userId    String
   postId    String   @db.ObjectId
-  // commentReplyId      String // Nullable as it's an ID
-  //contentCommentReply String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relationships
   user         User               @relation(fields: [userId], references: [id])
-  post         Post               @relation(fields: [postId], references: [id])
+  post         Post               @relation(fields: [postId], references: [id], onDelete: Cascade)
   commentReply PostReplyComment[]
 }
 
@@ -113,7 +114,7 @@ model PostReplyComment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  comments PostComment @relation(fields: [commentId], references: [id])
+  comments PostComment @relation(fields: [commentId], references: [id], onDelete: Cascade)
   user     User        @relation(fields: [userId], references: [id])
 }
 

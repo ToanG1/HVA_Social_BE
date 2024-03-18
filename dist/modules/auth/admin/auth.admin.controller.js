@@ -70,7 +70,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthAdminController.prototype, "checkAdmin", null);
 exports.AuthAdminController = AuthAdminController = __decorate([
-    (0, common_1.Controller)('api/admin/auth'),
+    (0, common_1.Controller)('admin/auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthAdminController);
 //# sourceMappingURL=auth.admin.controller.js.map

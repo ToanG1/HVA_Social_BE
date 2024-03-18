@@ -3,7 +3,7 @@ import { NotificationsService } from './notifications.service';
 import { CreateNotificationTokenDto } from './dto/create-notification-token.dto';
 import { AuthGuard } from 'src/guard/auth.guard';
 
-@Controller('api/noti')
+@Controller('noti')
 export class NotificationsController {
   constructor(private readonly notificationsService: NotificationsService) {}
 

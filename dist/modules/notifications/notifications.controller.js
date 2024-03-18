@@ -36,7 +36,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], NotificationsController.prototype, "createNotificationToken", null);
 exports.NotificationsController = NotificationsController = __decorate([
-    (0, common_1.Controller)('api/noti'),
+    (0, common_1.Controller)('noti'),
     __metadata("design:paramtypes", [notifications_service_1.NotificationsService])
 ], NotificationsController);
 //# sourceMappingURL=notifications.controller.js.map

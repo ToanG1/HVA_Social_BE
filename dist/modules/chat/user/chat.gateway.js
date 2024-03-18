@@ -18,6 +18,8 @@ const socket_io_1 = require("socket.io");
 const chat_service_1 = require("./chat.service");
 const create_chat_dto_1 = require("../dto/create-chat.dto");
 const typing_dto_1 = require("../dto/typing.dto");
+const common_1 = require("@nestjs/common");
+const auth_guard_1 = require("../../../guard/auth.guard");
 let ChatGateway = class ChatGateway {
     constructor(chatService) {
         this.chatService = chatService;
@@ -37,6 +39,7 @@ __decorate([
     __metadata("design:type", socket_io_1.Server)
 ], ChatGateway.prototype, "server", void 0);
 __decorate([
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, websockets_1.SubscribeMessage)('sendMessage'),
     __param(0, (0, websockets_1.MessageBody)()),
     __metadata("design:type", Function),
@@ -44,6 +47,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ChatGateway.prototype, "create", null);
 __decorate([
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, websockets_1.SubscribeMessage)('typing'),
     __param(0, (0, websockets_1.MessageBody)()),
     __metadata("design:type", Function),

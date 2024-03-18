@@ -14,32 +14,18 @@ export declare class PostCommentController {
         createdAt: Date;
         updatedAt: Date;
     }>;
-    findAll(): string;
-    findOne(id: string): Promise<{
+    findCommentsOfPost(id: string): Promise<{
         user: {
-            post: {
-                id: string;
-                content: string;
-                images: string[];
-                videos: string[];
-                userId: string;
-                isActivated: boolean;
-                createdAt: Date;
-                updatedAt: Date;
-            }[];
+            userInfo: {
+                avatar: string;
+            };
             name: string;
-            id: string;
         };
-    } & {
         id: string;
         content: string;
         images: string[];
         videos: string[];
-        userId: string;
-        postId: string;
-        createdAt: Date;
-        updatedAt: Date;
-    }>;
+    }[]>;
     update(id: string, updatePostCommentDto: UpdatePostCommentDto, req: any): Promise<{
         id: string;
         content: string;

@@ -18,7 +18,7 @@ import { LoginDto } from '../authDto/login.dto';
 import { AuthGuard } from 'src/guard/auth.guard';
 import { UserService } from '../../user/user.service';
 import { NotificationsService } from 'src/modules/notifications/notifications.service';
-@Controller('api/auth')
+@Controller('auth')
 export class AuthController {
   constructor(
     private authService: AuthService,

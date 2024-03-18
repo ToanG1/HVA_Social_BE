@@ -13,7 +13,7 @@ import { MinioClientService } from './minio-client.service';
 import { Express } from 'express';
 import { AuthGuard } from 'src/guard/auth.guard';
 
-@Controller('api/minio')
+@Controller('minio')
 export class MinioClientController {
   constructor(private readonly minioService: MinioClientService) {}
 

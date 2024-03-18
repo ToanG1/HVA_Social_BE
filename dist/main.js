@@ -10,6 +10,7 @@ const response_formatting_interceptor_1 = require("./interceptors/response-forma
 const express_1 = require("express");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    app.setGlobalPrefix('api');
     admin.initializeApp({
         credential: admin.credential.cert(path.join(__dirname, '..', 'firebase-adminsdk.json')),
     });

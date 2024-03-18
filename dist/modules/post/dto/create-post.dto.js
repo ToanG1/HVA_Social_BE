@@ -30,7 +30,6 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'link image of post',
         example: 'link image of post',
-        required: true,
     }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Array)
@@ -39,7 +38,6 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'link video of post',
         example: 'link video of post',
-        required: true,
     }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Array)

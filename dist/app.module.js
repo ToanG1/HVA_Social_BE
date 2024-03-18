@@ -21,6 +21,7 @@ const auth_module_1 = require("./modules/auth/auth.module");
 const ai_api_module_1 = require("./modules/ai-api/ai-api.module");
 const chat_module_1 = require("./modules/chat/chat.module");
 const minio_client_module_1 = require("./modules/minio-client/minio-client.module");
+const follow_module_1 = require("./modules/follow/follow.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -38,6 +39,7 @@ exports.AppModule = AppModule = __decorate([
             auth_module_1.AuthModule,
             ai_api_module_1.AiApiModule,
             chat_module_1.ChatModule,
+            follow_module_1.FollowModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

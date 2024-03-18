@@ -59,7 +59,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], MinioClientController.prototype, "deleteImage", null);
 exports.MinioClientController = MinioClientController = __decorate([
-    (0, common_1.Controller)('api/minio'),
+    (0, common_1.Controller)('minio'),
     __metadata("design:paramtypes", [minio_client_service_1.MinioClientService])
 ], MinioClientController);
 //# sourceMappingURL=minio-client.controller.js.map
