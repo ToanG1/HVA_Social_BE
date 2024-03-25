@@ -22,8 +22,8 @@ let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    getAllUsers() {
-        return this.userService.getAllUsers();
+    searchUsersByName(name) {
+        return this.userService.searchUsersByName(name);
     }
     createNewUser(createUserDto) {
         return this.userService.createUser(createUserDto);
@@ -42,10 +42,11 @@ exports.UserController = UserController;
 __decorate([
     (0, common_1.Get)(),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __param(0, (0, common_1.Query)('name')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], UserController.prototype, "getAllUsers", null);
+], UserController.prototype, "searchUsersByName", null);
 __decorate([
     (0, common_1.Post)(),
     (0, common_1.UsePipes)(new common_1.ValidationPipe({ whitelist: true })),

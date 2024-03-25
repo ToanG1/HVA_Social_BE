@@ -34,7 +34,10 @@ let AuthGuard = class AuthGuard {
         return true;
     }
     extractTokenFromHeader(request) {
-        const [type, token] = request.headers.authorization?.split(' ') ?? [];
+        const authorization = request.headers
+            ? request.headers.authorization
+            : request['handshake'].headers.authorization;
+        const [type, token] = authorization?.split(' ') ?? [];
         return type === 'Bearer' ? token : undefined;
     }
 };

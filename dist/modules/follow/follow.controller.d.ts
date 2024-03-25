@@ -10,22 +10,22 @@ export declare class FollowController {
     }, never, import("@prisma/client/runtime/library").DefaultArgs>;
     findAllCurrentUser(req: any): import(".prisma/client").Prisma.PrismaPromise<{
         follower: {
-            id: string;
             name: string;
+            id: string;
         };
         followed: {
-            id: string;
             name: string;
+            id: string;
         };
     }[]>;
     findAllOfUser(userId: string): import(".prisma/client").Prisma.PrismaPromise<{
         follower: {
-            id: string;
             name: string;
+            id: string;
         };
         followed: {
-            id: string;
             name: string;
+            id: string;
         };
     }[]>;
     remove(id: string): import(".prisma/client").Prisma.Prisma__FollowClient<{
