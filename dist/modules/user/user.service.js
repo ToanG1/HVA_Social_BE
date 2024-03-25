@@ -159,6 +159,20 @@ let UserService = class UserService {
             return result;
         });
     }
+    searchUsersByName(name) {
+        return this.prismaService.user.findMany({
+            where: {
+                name: {
+                    contains: name,
+                    mode: 'insensitive',
+                },
+            },
+            select: {
+                id: true,
+                name: true,
+            },
+        });
+    }
 };
 exports.UserService = UserService;
 exports.UserService = UserService = __decorate([

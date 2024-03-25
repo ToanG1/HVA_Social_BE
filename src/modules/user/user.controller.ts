@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Patch,
+  Query,
   ParseIntPipe,
   UsePipes,
   ValidationPipe,
@@ -22,8 +23,8 @@ export class UserController {
 
   @Get()
   @UseGuards(AuthGuard)
-  getAllUsers() {
-    return this.userService.getAllUsers();
+  searchUsersByName(@Query('name') name: string) {
+    return this.userService.searchUsersByName(name);
   }
 
   @Post()

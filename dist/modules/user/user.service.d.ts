@@ -88,4 +88,8 @@ export declare class UserService {
         createdAt: Date;
         updatedAt: Date;
     }[]>;
+    searchUsersByName(name: string): import(".prisma/client").Prisma.PrismaPromise<{
+        name: string;
+        id: string;
+    }[]>;
 }

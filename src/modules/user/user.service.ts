@@ -182,4 +182,19 @@ export class UserService {
       return result;
     });
   }
+
+  searchUsersByName(name: string) {
+    return this.prismaService.user.findMany({
+      where: {
+        name: {
+          contains: name,
+          mode: 'insensitive',
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+  }
 }

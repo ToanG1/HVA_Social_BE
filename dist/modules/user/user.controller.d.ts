@@ -4,15 +4,9 @@ import { UpdateUserDto } from './userDTO/updateUser.dto';
 export declare class UserController {
     private userService;
     constructor(userService: UserService);
-    getAllUsers(): Promise<{
-        id: string;
+    searchUsersByName(name: string): import(".prisma/client").Prisma.PrismaPromise<{
         name: string;
-        email: string;
-        password: string;
-        isAdmin: boolean;
-        isActivated: boolean;
-        createdAt: Date;
-        updatedAt: Date;
+        id: string;
     }[]>;
     createNewUser(createUserDto: CreateUserDto): Promise<{
         id: string;
@@ -24,6 +18,10 @@ export declare class UserController {
         updatedAt: Date;
     }>;
     getUser(userId: string): Promise<{
+        name: string;
+        id: string;
+        email: string;
+        isAdmin: boolean;
         userInfo: {
             id: string;
             userId: string;
@@ -32,10 +30,6 @@ export declare class UserController {
             createdAt: Date;
             updatedAt: Date;
         };
-        name: string;
-        email: string;
-        isAdmin: boolean;
-        id: string;
     }>;
     updateUser(userId: string, userUpdate: UpdateUserDto): Promise<{
         id: string;
