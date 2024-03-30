@@ -5,8 +5,8 @@ export declare class UserController {
     private userService;
     constructor(userService: UserService);
     searchUsersByName(name: string): import(".prisma/client").Prisma.PrismaPromise<{
-        name: string;
         id: string;
+        name: string;
     }[]>;
     createNewUser(createUserDto: CreateUserDto): Promise<{
         id: string;
@@ -18,8 +18,8 @@ export declare class UserController {
         updatedAt: Date;
     }>;
     getUser(userId: string): Promise<{
-        name: string;
         id: string;
+        name: string;
         email: string;
         isAdmin: boolean;
         userInfo: {
