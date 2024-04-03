@@ -19,6 +19,9 @@ export declare class PostController {
     findAll(): Promise<({
         user: {
             name: string;
+            userInfo: {
+                avatar: string;
+            };
         };
     } & {
         id: string;

@@ -10,10 +10,16 @@ export declare class FollowService {
     }, never, import("@prisma/client/runtime/library").DefaultArgs>;
     findAllOfUser(userId: string): import(".prisma/client").Prisma.PrismaPromise<{
         follower: {
+            userInfo: {
+                avatar: string;
+            };
             name: string;
             id: string;
         };
         followed: {
+            userInfo: {
+                avatar: string;
+            };
             name: string;
             id: string;
         };

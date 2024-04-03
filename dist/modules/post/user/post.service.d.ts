@@ -32,6 +32,9 @@ export declare class PostService {
     findUserById(id: string): Promise<Post | null | undefined>;
     findAll(): import(".prisma/client").Prisma.PrismaPromise<({
         user: {
+            userInfo: {
+                avatar: string;
+            };
             name: string;
         };
     } & {

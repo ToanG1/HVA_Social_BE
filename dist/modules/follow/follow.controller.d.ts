@@ -12,20 +12,32 @@ export declare class FollowController {
         follower: {
             id: string;
             name: string;
+            userInfo: {
+                avatar: string;
+            };
         };
         followed: {
             id: string;
             name: string;
+            userInfo: {
+                avatar: string;
+            };
         };
     }[]>;
     findAllOfUser(userId: string): import(".prisma/client").Prisma.PrismaPromise<{
         follower: {
             id: string;
             name: string;
+            userInfo: {
+                avatar: string;
+            };
         };
         followed: {
             id: string;
             name: string;
+            userInfo: {
+                avatar: string;
+            };
         };
     }[]>;
     remove(id: string): import(".prisma/client").Prisma.Prisma__FollowClient<{

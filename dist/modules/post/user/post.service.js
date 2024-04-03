@@ -62,6 +62,11 @@ let PostService = class PostService {
                 user: {
                     select: {
                         name: true,
+                        userInfo: {
+                            select: {
+                                avatar: true,
+                            },
+                        },
                     },
                 },
             },
