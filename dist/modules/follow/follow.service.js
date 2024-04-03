@@ -41,12 +41,22 @@ let FollowService = class FollowService {
                     select: {
                         id: true,
                         name: true,
+                        userInfo: {
+                            select: {
+                                avatar: true,
+                            },
+                        },
                     },
                 },
                 follower: {
                     select: {
                         id: true,
                         name: true,
+                        userInfo: {
+                            select: {
+                                avatar: true,
+                            },
+                        },
                     },
                 },
             },

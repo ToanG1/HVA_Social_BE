@@ -16,7 +16,7 @@ let PaginationInterceptor = class PaginationInterceptor {
             const request = context.switchToHttp().getRequest();
             const page = parseInt(request.query.page, 10) || 1;
             const limit = parseInt(request.query.limit, 10) || 10;
-            const paginatedData = pagination_util_1.PaginationUtil.paginate(data, page, limit);
+            const paginatedData = pagination_util_1.PaginationUtil.paginate(data, page, limit === -1 ? data.length : limit);
             return {
                 data: paginatedData,
                 code: data.code,
