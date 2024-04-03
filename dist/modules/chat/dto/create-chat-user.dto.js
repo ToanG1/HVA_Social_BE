@@ -12,6 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateChatUserDto = void 0;
 const class_validator_1 = require("class-validator");
 class CreateChatUserDto {
+    constructor(chatRoomId, userId) {
+        this.chatRoomId = chatRoomId;
+        this.userId = userId;
+    }
 }
 exports.CreateChatUserDto = CreateChatUserDto;
 __decorate([

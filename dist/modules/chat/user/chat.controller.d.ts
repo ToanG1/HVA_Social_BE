@@ -25,13 +25,13 @@ export declare class ChatController {
         content: string;
         createdAt: Date;
     }[]>;
-    createChatRoom(createChatRoomDto: CreateChatRoomDto, req: any): import(".prisma/client").Prisma.Prisma__ChatRoomClient<{
+    createChatRoom(createChatRoomDto: CreateChatRoomDto, req: any, userId: string): Promise<{
         id: string;
         name: string;
         isPublic: boolean;
         ownerId: string;
         createdAt: Date;
-    }, never, import("@prisma/client/runtime/library").DefaultArgs>;
+    }>;
     createChatUser(createChatUserDto: CreateChatUserDto, req: any): Promise<{
         id: string;
         chatRoomId: string;
