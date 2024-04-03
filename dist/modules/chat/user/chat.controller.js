@@ -32,8 +32,11 @@ let ChatController = class ChatController {
         }
         return this.chatService.findAllMessagesInChatRoom(chatRoomId);
     }
-    createChatRoom(createChatRoomDto, req) {
-        return this.chatService.createChatRoom(req.user.sub, createChatRoomDto);
+    async createChatRoom(createChatRoomDto, req, userId) {
+        const room = await this.chatService.createChatRoom(req.user.sub, createChatRoomDto);
+        await this.chatService.createChatUser(new create_chat_user_dto_1.CreateChatUserDto(room.id, req.user.sub));
+        await this.chatService.createChatUser(new create_chat_user_dto_1.CreateChatUserDto(room.id, userId));
+        return room;
     }
     async createChatUser(createChatUserDto, req) {
         if (await !this.chatService.isUserBelongToChatRoom(req.user.sub, createChatUserDto.chatRoomId)) {
@@ -80,9 +83,10 @@ __decorate([
     (0, common_1.Post)('room'),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Request)()),
+    __param(2, (0, common_1.Query)('userId')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_chat_room_dto_1.CreateChatRoomDto, Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [create_chat_room_dto_1.CreateChatRoomDto, Object, String]),
+    __metadata("design:returntype", Promise)
 ], ChatController.prototype, "createChatRoom", null);
 __decorate([
     (0, common_1.Post)('user'),

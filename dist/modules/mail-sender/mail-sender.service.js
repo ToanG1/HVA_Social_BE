@@ -36,7 +36,7 @@ let MailSenderService = class MailSenderService {
             .sendMail({
             to: email,
             from: 'toandinh01675@gmail.com',
-            subject: 'THIS IS YOUR ACTIVATION EMAIL FROM HOC VOI AI',
+            subject: 'THIS IS YOUR ACTIVATION CODE FROM HOC VOI AI',
             template: 'activation-code',
             context: {
                 code: code,

@@ -43,11 +43,22 @@ export class ChatController {
   }
 
   @Post('room')
-  createChatRoom(
+  async createChatRoom(
     @Body() createChatRoomDto: CreateChatRoomDto,
     @Request() req: any,
+    @Query('userId') userId: string,
   ) {
-    return this.chatService.createChatRoom(req.user.sub, createChatRoomDto);
+    const room = await this.chatService.createChatRoom(
+      req.user.sub,
+      createChatRoomDto,
+    );
+    await this.chatService.createChatUser(
+      new CreateChatUserDto(room.id, req.user.sub),
+    );
+    await this.chatService.createChatUser(
+      new CreateChatUserDto(room.id, userId),
+    );
+    return room;
   }
 
   @Post('user')

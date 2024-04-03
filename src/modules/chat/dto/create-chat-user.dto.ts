@@ -8,4 +8,9 @@ export class CreateChatUserDto {
   @IsString()
   @IsNotEmpty()
   userId: string;
+
+  constructor(chatRoomId: string, userId: string) {
+    this.chatRoomId = chatRoomId;
+    this.userId = userId;
+  }
 }
