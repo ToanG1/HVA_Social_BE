@@ -16,7 +16,18 @@ let FollowService = class FollowService {
     constructor(prismaService) {
         this.prismaService = prismaService;
     }
-    create(followerId, followedId) {
+    async create(followerId, followedId) {
+        const existed = await this.prismaService.follow.findUnique({
+            where: {
+                followerId_followedId: {
+                    followerId,
+                    followedId,
+                },
+            },
+        });
+        if (existed) {
+            return this.remove(existed.id);
+        }
         return this.prismaService.follow.create({
             data: {
                 followerId,

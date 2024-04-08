@@ -25,6 +25,10 @@ export declare class UserService {
         updatedAt: Date;
     }>;
     getUser(userId: string): Promise<{
+        id: string;
+        name: string;
+        email: string;
+        isAdmin: boolean;
         userInfo: {
             id: string;
             userId: string;
@@ -33,10 +37,6 @@ export declare class UserService {
             createdAt: Date;
             updatedAt: Date;
         };
-        name: string;
-        email: string;
-        isAdmin: boolean;
-        id: string;
     }>;
     updateUser(userId: string, updateUser: UpdateUserDto): Promise<{
         id: string;
@@ -88,8 +88,10 @@ export declare class UserService {
         createdAt: Date;
         updatedAt: Date;
     }[]>;
-    searchUsersByName(name: string): import(".prisma/client").Prisma.PrismaPromise<{
-        name: string;
+    searchUsersByName(name: string, userId: string): Promise<{
         id: string;
+        name: string;
+        avatar: string;
+        isFollowed: boolean;
     }[]>;
 }

@@ -183,8 +183,8 @@ export class UserService {
     });
   }
 
-  searchUsersByName(name: string) {
-    return this.prismaService.user.findMany({
+  async searchUsersByName(name: string, userId: string) {
+    const users = await this.prismaService.user.findMany({
       where: {
         name: {
           contains: name,
@@ -194,7 +194,26 @@ export class UserService {
       select: {
         id: true,
         name: true,
+        userInfo: {
+          select: {
+            avatar: true,
+          },
+        },
+        followed: {
+          where: {
+            followerId: userId,
+          },
+          select: {
+            followedId: true,
+          },
+        },
       },
     });
+    return users.map((user) => ({
+      id: user.id,
+      name: user.name,
+      avatar: user.userInfo ? user.userInfo.avatar : null,
+      isFollowed: user.followed.length > 0 ? true : false,
+    }));
   }
 }

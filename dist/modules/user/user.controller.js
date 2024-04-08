@@ -22,8 +22,8 @@ let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    searchUsersByName(name) {
-        return this.userService.searchUsersByName(name);
+    searchUsersByName(name, req) {
+        return this.userService.searchUsersByName(name, req.user.sub);
     }
     createNewUser(createUserDto) {
         return this.userService.createUser(createUserDto);
@@ -43,8 +43,9 @@ __decorate([
     (0, common_1.Get)(),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __param(0, (0, common_1.Query)('name')),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "searchUsersByName", null);
 __decorate([
