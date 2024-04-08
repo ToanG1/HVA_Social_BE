@@ -80,6 +80,10 @@ export class ChatService {
     });
   }
 
+  findOne() {
+    return null;
+  }
+
   createChatRoom(userId: string, createChatRoomDto: CreateChatRoomDto) {
     return this.prismaService.chatRoom.create({
       data: {

@@ -11,6 +11,7 @@ import {
   UsePipes,
   ValidationPipe,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './userDTO/createUser.dto';
@@ -23,8 +24,8 @@ export class UserController {
 
   @Get()
   @UseGuards(AuthGuard)
-  searchUsersByName(@Query('name') name: string) {
-    return this.userService.searchUsersByName(name);
+  searchUsersByName(@Query('name') name: string, @Request() req: any) {
+    return this.userService.searchUsersByName(name, req.user.sub);
   }
 
   @Post()

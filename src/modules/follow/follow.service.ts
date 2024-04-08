@@ -4,7 +4,20 @@ import { PrismaService } from '../prisma/prisma.service';
 export class FollowService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  create(followerId: string, followedId: string) {
+  async create(followerId: string, followedId: string) {
+    const existed = await this.prismaService.follow.findUnique({
+      where: {
+        followerId_followedId: {
+          followerId,
+          followedId,
+        },
+      },
+    });
+
+    if (existed) {
+      return this.remove(existed.id);
+    }
+
     return this.prismaService.follow.create({
       data: {
         followerId,

@@ -15,13 +15,13 @@ export declare class PostCommentController {
         updatedAt: Date;
     }>;
     findCommentsOfPost(id: string): Promise<{
-        id: string;
         user: {
-            name: string;
             userInfo: {
                 avatar: string;
             };
+            name: string;
         };
+        id: string;
         content: string;
         images: string[];
         videos: string[];

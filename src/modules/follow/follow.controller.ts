@@ -4,7 +4,6 @@ import {
   Post,
   Request,
   Param,
-  Delete,
   Query,
   UseGuards,
   UseInterceptors,
@@ -33,10 +32,5 @@ export class FollowController {
   @UseInterceptors(PaginationInterceptor)
   findAllOfUser(@Param('userId') userId: string) {
     return this.followService.findAllOfUser(userId);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.followService.remove(id);
   }
 }

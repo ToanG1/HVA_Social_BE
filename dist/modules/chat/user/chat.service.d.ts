@@ -30,6 +30,7 @@ export declare class ChatService {
         content: string;
         createdAt: Date;
     }[]>;
+    findOne(): any;
     createChatRoom(userId: string, createChatRoomDto: CreateChatRoomDto): import(".prisma/client").Prisma.Prisma__ChatRoomClient<{
         id: string;
         name: string;

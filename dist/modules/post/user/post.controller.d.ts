@@ -18,10 +18,10 @@ export declare class PostController {
     }>;
     findAll(): Promise<({
         user: {
-            name: string;
             userInfo: {
                 avatar: string;
             };
+            name: string;
         };
     } & {
         id: string;
@@ -49,8 +49,8 @@ export declare class PostController {
     })[]>;
     findOne(id: string): Promise<{
         user: {
-            id: string;
             name: string;
+            id: string;
         };
     } & {
         id: string;
