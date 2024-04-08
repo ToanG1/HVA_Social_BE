@@ -33,9 +33,12 @@ let ChatController = class ChatController {
         return this.chatService.findAllMessagesInChatRoom(chatRoomId);
     }
     async createChatRoom(createChatRoomDto, req, userId) {
-        const room = await this.chatService.createChatRoom(req.user.sub, createChatRoomDto);
-        await this.chatService.createChatUser(new create_chat_user_dto_1.CreateChatUserDto(room.id, req.user.sub));
-        await this.chatService.createChatUser(new create_chat_user_dto_1.CreateChatUserDto(room.id, userId));
+        let room = await this.chatService.findOne(req.user.sub, userId);
+        if (!room) {
+            room = await this.chatService.createChatRoom(req.user.sub, createChatRoomDto);
+            await this.chatService.createChatUser(new create_chat_user_dto_1.CreateChatUserDto(room.id, req.user.sub));
+            await this.chatService.createChatUser(new create_chat_user_dto_1.CreateChatUserDto(room.id, userId));
+        }
         return room;
     }
     async createChatUser(createChatUserDto, req) {

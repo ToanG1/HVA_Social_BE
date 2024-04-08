@@ -48,16 +48,20 @@ export class ChatController {
     @Request() req: any,
     @Query('userId') userId: string,
   ) {
-    const room = await this.chatService.createChatRoom(
-      req.user.sub,
-      createChatRoomDto,
-    );
-    await this.chatService.createChatUser(
-      new CreateChatUserDto(room.id, req.user.sub),
-    );
-    await this.chatService.createChatUser(
-      new CreateChatUserDto(room.id, userId),
-    );
+    let room = await this.chatService.findOne(req.user.sub, userId);
+    if (!room) {
+      room = await this.chatService.createChatRoom(
+        req.user.sub,
+        createChatRoomDto,
+      );
+      await this.chatService.createChatUser(
+        new CreateChatUserDto(room.id, req.user.sub),
+      );
+      await this.chatService.createChatUser(
+        new CreateChatUserDto(room.id, userId),
+      );
+    }
+
     return room;
   }
 

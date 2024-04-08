@@ -82,8 +82,26 @@ let ChatService = class ChatService {
             },
         });
     }
-    findOne() {
-        return null;
+    findOne(currentUserId, userId) {
+        return this.prismaService.chatRoom.findFirst({
+            where: {
+                OR: [
+                    {
+                        ownerId: currentUserId,
+                    },
+                    {
+                        ownerId: userId,
+                    },
+                ],
+                chatUsers: {
+                    every: {
+                        userId: {
+                            in: [currentUserId, userId],
+                        },
+                    },
+                },
+            },
+        });
     }
     createChatRoom(userId, createChatRoomDto) {
         return this.prismaService.chatRoom.create({
