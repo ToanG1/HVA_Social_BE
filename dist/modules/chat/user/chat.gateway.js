@@ -14,22 +14,31 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChatGateway = void 0;
 const websockets_1 = require("@nestjs/websockets");
+const common_1 = require("@nestjs/common");
 const socket_io_1 = require("socket.io");
 const chat_service_1 = require("./chat.service");
 const create_chat_dto_1 = require("../dto/create-chat.dto");
 const typing_dto_1 = require("../dto/typing.dto");
-const common_1 = require("@nestjs/common");
+const common_2 = require("@nestjs/common");
 const auth_guard_1 = require("../../../guard/auth.guard");
 let ChatGateway = class ChatGateway {
     constructor(chatService) {
         this.chatService = chatService;
     }
-    async create(createChatDto) {
+    async create(createChatDto, req) {
+        const chatUser = await this.chatService.findChatUserByUserId(createChatDto.chatRoomId, req.user.id);
+        if (!chatUser) {
+            throw new common_1.ForbiddenException('You are not a member of this chat room');
+        }
+        createChatDto.chatUserId = chatUser.id;
         this.server
             .to(createChatDto.chatRoomId)
             .emit('message', await this.chatService.createChat(createChatDto));
     }
-    typing(typingDto) {
+    typing(typingDto, req) {
+        if (!this.chatService.isUserBelongToChatRoom(req.user.sub, typingDto.chatRoomId)) {
+            throw new common_1.ForbiddenException('You are not a member of this chat room');
+        }
         this.server.to(typingDto.chatRoomId).emit('typing', typingDto);
     }
 };
@@ -39,19 +48,21 @@ __decorate([
     __metadata("design:type", socket_io_1.Server)
 ], ChatGateway.prototype, "server", void 0);
 __decorate([
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_2.UseGuards)(auth_guard_1.AuthGuard),
     (0, websockets_1.SubscribeMessage)('sendMessage'),
     __param(0, (0, websockets_1.MessageBody)()),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_chat_dto_1.CreateChatDto]),
+    __metadata("design:paramtypes", [create_chat_dto_1.CreateChatDto, Object]),
     __metadata("design:returntype", Promise)
 ], ChatGateway.prototype, "create", null);
 __decorate([
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_2.UseGuards)(auth_guard_1.AuthGuard),
     (0, websockets_1.SubscribeMessage)('typing'),
     __param(0, (0, websockets_1.MessageBody)()),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typing_dto_1.TypingDto]),
+    __metadata("design:paramtypes", [typing_dto_1.TypingDto, Object]),
     __metadata("design:returntype", void 0)
 ], ChatGateway.prototype, "typing", null);
 exports.ChatGateway = ChatGateway = __decorate([

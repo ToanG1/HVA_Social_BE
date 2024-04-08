@@ -13,6 +13,16 @@ exports.ChatService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../../prisma/prisma.service");
 let ChatService = class ChatService {
+    findChatUserByUserId(roomId, userId) {
+        return this.prismaService.chatUser.findUnique({
+            where: {
+                chatRoomId_userId: {
+                    chatRoomId: roomId,
+                    userId: userId,
+                },
+            },
+        });
+    }
     async deleteChatRoom(chatRoomId) {
         try {
             await this.prismaService.chatRoom.delete({
@@ -53,13 +63,8 @@ let ChatService = class ChatService {
             },
         })) > 0);
     }
-    async isUserChatRoomOwner(userId, chatRoomId) {
-        return ((await this.prismaService.chatRoom.count({
-            where: {
-                id: chatRoomId,
-                ownerId: userId,
-            },
-        })) > 0);
+    isUserChatRoomOwner(userId, chatRoomId) {
+        return this.findChatUserByUserId(chatRoomId, userId) ? true : false;
     }
     findAllChatRooms(userId) {
         return this.prismaService.chatRoom.findMany({

@@ -20,11 +20,6 @@ __decorate([
     __metadata("design:type", String)
 ], TypingDto.prototype, "chatRoomId", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], TypingDto.prototype, "userId", void 0);
-__decorate([
     (0, class_validator_1.IsBoolean)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Boolean)

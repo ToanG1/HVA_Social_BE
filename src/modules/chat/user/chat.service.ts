@@ -6,6 +6,16 @@ import { PrismaService } from 'src/modules/prisma/prisma.service';
 
 @Injectable()
 export class ChatService {
+  findChatUserByUserId(roomId: string, userId: string) {
+    return this.prismaService.chatUser.findUnique({
+      where: {
+        chatRoomId_userId: {
+          chatRoomId: roomId,
+          userId: userId,
+        },
+      },
+    });
+  }
   async deleteChatRoom(chatRoomId: string) {
     try {
       await this.prismaService.chatRoom.delete({
@@ -46,15 +56,8 @@ export class ChatService {
     );
   }
 
-  async isUserChatRoomOwner(userId: string, chatRoomId: string) {
-    return (
-      (await this.prismaService.chatRoom.count({
-        where: {
-          id: chatRoomId,
-          ownerId: userId,
-        },
-      })) > 0
-    );
+  isUserChatRoomOwner(userId: string, chatRoomId: string) {
+    return this.findChatUserByUserId(chatRoomId, userId) ? true : false;
   }
 
   findAllChatRooms(userId: string) {
