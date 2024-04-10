@@ -32,10 +32,13 @@ export declare class ChatController {
         id: string;
         name: string;
         chatUsers: {
-            id: string;
-            chatRoomId: string;
             userId: string;
-            createdAt: Date;
+            user: {
+                name: string;
+                userInfo: {
+                    avatar: string;
+                };
+            };
         }[];
     }>;
     createChatUser(createChatUserDto: CreateChatUserDto, req: any): Promise<{
