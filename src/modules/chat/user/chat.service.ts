@@ -70,7 +70,21 @@ export class ChatService {
         },
       },
       include: {
-        chatUsers: true,
+        chatUsers: {
+          select: {
+            userId: true,
+            user: {
+              select: {
+                name: true,
+                userInfo: {
+                  select: {
+                    avatar: true,
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
   }

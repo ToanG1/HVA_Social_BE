@@ -17,10 +17,13 @@ export declare class ChatService {
     isUserChatRoomOwner(userId: string, chatRoomId: string): boolean;
     findAllChatRooms(userId: string): import(".prisma/client").Prisma.PrismaPromise<({
         chatUsers: {
-            id: string;
-            chatRoomId: string;
             userId: string;
-            createdAt: Date;
+            user: {
+                name: string;
+                userInfo: {
+                    avatar: string;
+                };
+            };
         }[];
     } & {
         id: string;
