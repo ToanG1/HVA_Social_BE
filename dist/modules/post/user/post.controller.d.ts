@@ -49,8 +49,8 @@ export declare class PostController {
     })[]>;
     findOne(id: string): Promise<{
         user: {
-            name: string;
             id: string;
+            name: string;
         };
     } & {
         id: string;

@@ -24,10 +24,10 @@ export declare class PostService {
             createdAt: Date;
             updatedAt: Date;
         };
+        id: string;
         name: string;
         email: string;
         isAdmin: boolean;
-        id: string;
     }>;
     findUserById(id: string): Promise<Post | null | undefined>;
     findAll(): import(".prisma/client").Prisma.PrismaPromise<({
@@ -49,8 +49,8 @@ export declare class PostService {
     })[]>;
     findOne(id: string): Promise<{
         user: {
-            name: string;
             id: string;
+            name: string;
         };
     } & {
         id: string;
@@ -71,10 +71,10 @@ export declare class PostService {
             createdAt: Date;
             updatedAt: Date;
         };
+        id: string;
         name: string;
         email: string;
         isAdmin: boolean;
-        id: string;
     }>;
     update(id: string, updatePostDto: UpdatePostDto): Promise<{
         id: string;
