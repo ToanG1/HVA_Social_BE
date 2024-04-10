@@ -6,6 +6,6 @@ export declare class ChatGateway {
     private readonly chatService;
     constructor(chatService: ChatService);
     server: Server;
-    create(createChatDto: CreateChatDto): Promise<void>;
-    typing(typingDto: TypingDto): void;
+    create(createChatDto: CreateChatDto, req: any): Promise<void>;
+    typing(typingDto: TypingDto, req: any): void;
 }

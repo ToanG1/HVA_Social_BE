@@ -4,17 +4,26 @@ import { CreateChatUserDto } from '../dto/create-chat-user.dto';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
 export declare class ChatService {
     private readonly prismaService;
+    findChatUserByUserId(roomId: string, userId: string): import(".prisma/client").Prisma.Prisma__ChatUserClient<{
+        id: string;
+        chatRoomId: string;
+        userId: string;
+        createdAt: Date;
+    }, null, import("@prisma/client/runtime/library").DefaultArgs>;
     deleteChatRoom(chatRoomId: string): Promise<string>;
     deleteChatUser(chatRoomId: string, userId: string): Promise<string>;
     constructor(prismaService: PrismaService);
     isUserBelongToChatRoom(userId: string, chatRoomId: string): Promise<boolean>;
-    isUserChatRoomOwner(userId: string, chatRoomId: string): Promise<boolean>;
+    isUserChatRoomOwner(userId: string, chatRoomId: string): boolean;
     findAllChatRooms(userId: string): import(".prisma/client").Prisma.PrismaPromise<({
         chatUsers: {
-            id: string;
-            chatRoomId: string;
             userId: string;
-            createdAt: Date;
+            user: {
+                name: string;
+                userInfo: {
+                    avatar: string;
+                };
+            };
         }[];
     } & {
         id: string;

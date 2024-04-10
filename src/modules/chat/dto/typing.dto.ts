@@ -5,10 +5,6 @@ export class TypingDto {
   @IsNotEmpty()
   chatRoomId: string;
 
-  @IsString()
-  @IsNotEmpty()
-  userId: string;
-
   @IsBoolean()
   @IsNotEmpty()
   isTyping: boolean;
