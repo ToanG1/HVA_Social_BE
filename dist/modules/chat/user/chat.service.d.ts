@@ -42,9 +42,12 @@ export declare class ChatService {
     findOne(currentUserId: string, userId: string): import(".prisma/client").Prisma.Prisma__ChatRoomClient<{
         id: string;
         name: string;
-        isPublic: boolean;
-        ownerId: string;
-        createdAt: Date;
+        chatUsers: {
+            id: string;
+            chatRoomId: string;
+            userId: string;
+            createdAt: Date;
+        }[];
     }, null, import("@prisma/client/runtime/library").DefaultArgs>;
     createChatRoom(userId: string, createChatRoomDto: CreateChatRoomDto): import(".prisma/client").Prisma.Prisma__ChatRoomClient<{
         id: string;

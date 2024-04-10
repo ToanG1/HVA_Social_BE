@@ -120,6 +120,11 @@ let ChatService = class ChatService {
                     },
                 },
             },
+            select: {
+                id: true,
+                name: true,
+                chatUsers: true,
+            },
         });
     }
     createChatRoom(userId, createChatRoomDto) {
