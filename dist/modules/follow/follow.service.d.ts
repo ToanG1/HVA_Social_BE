@@ -13,15 +13,15 @@ export declare class FollowService {
             userInfo: {
                 avatar: string;
             };
-            name: string;
             id: string;
+            name: string;
         };
         followed: {
             userInfo: {
                 avatar: string;
             };
-            name: string;
             id: string;
+            name: string;
         };
     }[]>;
     remove(id: string): import(".prisma/client").Prisma.Prisma__FollowClient<{

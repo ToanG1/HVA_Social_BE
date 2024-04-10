@@ -6,13 +6,13 @@ export declare class ChatController {
     constructor(chatService: ChatService);
     findAllChatRooms(req: any): import(".prisma/client").Prisma.PrismaPromise<({
         chatUsers: {
-            userId: string;
             user: {
-                name: string;
                 userInfo: {
                     avatar: string;
                 };
+                name: string;
             };
+            userId: string;
         }[];
     } & {
         id: string;
@@ -32,13 +32,13 @@ export declare class ChatController {
         id: string;
         name: string;
         chatUsers: {
-            userId: string;
             user: {
-                name: string;
                 userInfo: {
                     avatar: string;
                 };
+                name: string;
             };
+            userId: string;
         }[];
     }>;
     createChatUser(createChatUserDto: CreateChatUserDto, req: any): Promise<{

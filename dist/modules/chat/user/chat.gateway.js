@@ -26,7 +26,7 @@ let ChatGateway = class ChatGateway {
         this.chatService = chatService;
     }
     async create(createChatDto, req) {
-        const chatUser = await this.chatService.findChatUserByUserId(createChatDto.chatRoomId, req.user.id);
+        const chatUser = await this.chatService.findChatUserByUserId(createChatDto.chatRoomId, req.user.sub);
         if (!chatUser) {
             throw new common_1.ForbiddenException('You are not a member of this chat room');
         }

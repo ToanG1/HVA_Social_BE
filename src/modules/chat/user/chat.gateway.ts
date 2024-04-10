@@ -31,7 +31,7 @@ export class ChatGateway {
   ) {
     const chatUser = await this.chatService.findChatUserByUserId(
       createChatDto.chatRoomId,
-      req.user.id,
+      req.user.sub,
     );
     if (!chatUser) {
       throw new ForbiddenException('You are not a member of this chat room');
