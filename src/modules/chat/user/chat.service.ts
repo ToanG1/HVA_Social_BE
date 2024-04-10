@@ -116,6 +116,26 @@ export class ChatService {
           },
         },
       },
+      select: {
+        id: true,
+        name: true,
+        chatUsers: true,
+        // chatUsers: {
+        //   select: {
+        //     userId: true,
+        //     user: {
+        //       select: {
+        //         name: true,
+        //         userInfo: {
+        //           select: {
+        //             avatar: true,
+        //           },
+        //         },
+        //       },
+        //     },
+        //   },
+        // },
+      },
     });
   }
 
