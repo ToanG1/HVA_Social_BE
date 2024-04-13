@@ -19,7 +19,11 @@ export declare class UserController {
         createdAt: Date;
         updatedAt: Date;
     }>;
-    getUser(userId: string): Promise<{
+    getUser(userId: string, req: any): Promise<{
+        name: string;
+        id: string;
+        email: string;
+        isAdmin: boolean;
         userInfo: {
             id: string;
             userId: string;
@@ -28,10 +32,6 @@ export declare class UserController {
             createdAt: Date;
             updatedAt: Date;
         };
-        id: string;
-        name: string;
-        email: string;
-        isAdmin: boolean;
     }>;
     updateUser(userId: string, userUpdate: UpdateUserDto): Promise<{
         id: string;

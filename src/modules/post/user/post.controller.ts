@@ -33,7 +33,7 @@ export class PostController {
   async create(@Body() createPostDto: CreatePostDto, @Request() req: any) {
     const post = await this.postService.create(createPostDto, req.user.sub);
 
-    if (!(await this.checkNSFWPost(post, req.user.sub))) {
+    if (await this.checkNSFWPost(post, req.user.sub)) {
       return post;
     }
     await this.postService.remove(post.id);

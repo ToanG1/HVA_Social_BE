@@ -28,8 +28,11 @@ let UserController = class UserController {
     createNewUser(createUserDto) {
         return this.userService.createUser(createUserDto);
     }
-    async getUser(userId) {
-        return await this.userService.getUser(userId);
+    getUser(userId, req) {
+        if (userId === 'me')
+            return this.userService.getUser(req.user.sub);
+        else
+            return this.userService.getUser(userId);
     }
     updateUser(userId, userUpdate) {
         return this.userService.updateUser(userId, userUpdate);
@@ -58,10 +61,12 @@ __decorate([
 ], UserController.prototype, "createNewUser", null);
 __decorate([
     (0, common_1.Get)('/:id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
 ], UserController.prototype, "getUser", null);
 __decorate([
     (0, common_1.Patch)('/:id'),

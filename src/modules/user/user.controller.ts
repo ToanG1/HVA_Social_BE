@@ -35,8 +35,10 @@ export class UserController {
   }
 
   @Get('/:id')
-  async getUser(@Param('id') userId: string) {
-    return await this.userService.getUser(userId);
+  @UseGuards(AuthGuard)
+  getUser(@Param('id') userId: string, @Request() req: any) {
+    if (userId === 'me') return this.userService.getUser(req.user.sub);
+    else return this.userService.getUser(userId);
   }
 
   @Patch('/:id')
