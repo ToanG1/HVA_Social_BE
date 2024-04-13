@@ -94,6 +94,9 @@ export class ChatService {
       where: {
         chatRoomId: chatRoomId,
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
   }
 

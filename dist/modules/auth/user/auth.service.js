@@ -94,7 +94,7 @@ let AuthService = class AuthService {
                 user: {
                     connect: createdUser,
                 },
-                token: (0, crypto_1.randomUUID)(),
+                token: Math.floor(Math.random() * 999999).toString(),
                 type: token_type_enum_1.TokenType[token_type_enum_1.TokenType.ACTIVATION_TOKEN],
                 expiresAt: getRefreshExpiry(),
                 createdAt: new Date(),

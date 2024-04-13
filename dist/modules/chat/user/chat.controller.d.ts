@@ -29,8 +29,8 @@ export declare class ChatController {
         createdAt: Date;
     }[]>;
     createChatRoom(createChatRoomDto: CreateChatRoomDto, req: any, userId: string): Promise<{
-        id: string;
         name: string;
+        id: string;
         chatUsers: {
             user: {
                 userInfo: {

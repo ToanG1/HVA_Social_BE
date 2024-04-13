@@ -40,8 +40,8 @@ export declare class ChatService {
         createdAt: Date;
     }[]>;
     findOne(currentUserId: string, userId: string): import(".prisma/client").Prisma.Prisma__ChatRoomClient<{
-        id: string;
         name: string;
+        id: string;
         chatUsers: {
             user: {
                 userInfo: {

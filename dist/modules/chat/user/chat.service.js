@@ -99,6 +99,9 @@ let ChatService = class ChatService {
             where: {
                 chatRoomId: chatRoomId,
             },
+            orderBy: {
+                createdAt: 'desc',
+            },
         });
     }
     findOne(currentUserId, userId) {

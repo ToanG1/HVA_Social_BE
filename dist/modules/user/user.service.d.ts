@@ -25,6 +25,10 @@ export declare class UserService {
         updatedAt: Date;
     }>;
     getUser(userId: string): Promise<{
+        id: string;
+        name: string;
+        email: string;
+        isAdmin: boolean;
         userInfo: {
             id: string;
             userId: string;
@@ -33,10 +37,6 @@ export declare class UserService {
             createdAt: Date;
             updatedAt: Date;
         };
-        id: string;
-        name: string;
-        email: string;
-        isAdmin: boolean;
     }>;
     updateUser(userId: string, updateUser: UpdateUserDto): Promise<{
         id: string;

@@ -101,7 +101,7 @@ export class AuthService {
         user: {
           connect: createdUser,
         },
-        token: randomUUID(),
+        token: Math.floor(Math.random() * 999999).toString(),
         type: TokenType[TokenType.ACTIVATION_TOKEN],
         expiresAt: getRefreshExpiry(),
         createdAt: new Date(),
