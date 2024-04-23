@@ -21,9 +21,11 @@ const create_chat_dto_1 = require("../dto/create-chat.dto");
 const typing_dto_1 = require("../dto/typing.dto");
 const common_2 = require("@nestjs/common");
 const auth_guard_1 = require("../../../guard/auth.guard");
+const chat_ai_api_service_1 = require("../../ai-api/chat/chat-ai-api.service");
 let ChatGateway = class ChatGateway {
-    constructor(chatService) {
+    constructor(chatService, chatAiApiService) {
         this.chatService = chatService;
+        this.chatAiApiService = chatAiApiService;
     }
     async create(createChatDto, req) {
         const chatUser = await this.chatService.findChatUserByUserId(createChatDto.chatRoomId, req.user.sub);
@@ -40,6 +42,9 @@ let ChatGateway = class ChatGateway {
             throw new common_1.ForbiddenException('You are not a member of this chat room');
         }
         this.server.to(typingDto.chatRoomId).emit('typing', typingDto);
+    }
+    chatWithAI(createChatDto) {
+        return this.chatAiApiService.chat(createChatDto);
     }
 };
 exports.ChatGateway = ChatGateway;
@@ -65,12 +70,21 @@ __decorate([
     __metadata("design:paramtypes", [typing_dto_1.TypingDto, Object]),
     __metadata("design:returntype", void 0)
 ], ChatGateway.prototype, "typing", null);
+__decorate([
+    (0, common_2.UseGuards)(auth_guard_1.AuthGuard),
+    (0, websockets_1.SubscribeMessage)('typing'),
+    __param(0, (0, websockets_1.MessageBody)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_chat_dto_1.CreateChatDto]),
+    __metadata("design:returntype", void 0)
+], ChatGateway.prototype, "chatWithAI", null);
 exports.ChatGateway = ChatGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({
         cors: {
             origin: '*',
         },
     }),
-    __metadata("design:paramtypes", [chat_service_1.ChatService])
+    __metadata("design:paramtypes", [chat_service_1.ChatService,
+        chat_ai_api_service_1.ChatAiApiService])
 ], ChatGateway);
 //# sourceMappingURL=chat.gateway.js.map

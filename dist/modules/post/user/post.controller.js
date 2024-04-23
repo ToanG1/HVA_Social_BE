@@ -28,14 +28,18 @@ let PostController = class PostController {
     }
     async create(createPostDto, req) {
         const post = await this.postService.create(createPostDto, req.user.sub);
-        if (await this.checkNSFWPost(post, req.user.sub)) {
+        if (!(await this.checkNSFWPost(post, req.user.sub))) {
             return post;
         }
         await this.postService.remove(post.id);
         throw new common_1.NotAcceptableException('Your post violated our Community Standard for NSFW content');
     }
-    async findAll() {
-        return await this.postService.findAll();
+    findAll(userId) {
+        console.log(userId);
+        if (userId) {
+            return this.postService.findByUserId(userId);
+        }
+        return this.postService.findAll();
     }
     async search(content) {
         return await this.postService.search(content);
@@ -110,9 +114,10 @@ __decorate([
 __decorate([
     (0, common_1.Get)(),
     (0, common_1.UseInterceptors)(pagination_interceptors_1.PaginationInterceptor),
+    __param(0, (0, common_1.Query)('userId')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
 ], PostController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(),

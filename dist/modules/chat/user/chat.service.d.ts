@@ -33,11 +33,18 @@ export declare class ChatService {
         createdAt: Date;
     })[]>;
     findAllMessagesInChatRoom(chatRoomId: string): import(".prisma/client").Prisma.PrismaPromise<{
+        chatUser: {
+            user: {
+                userInfo: {
+                    avatar: string;
+                };
+                name: string;
+                id: string;
+            };
+        };
         id: string;
-        chatRoomId: string;
-        chatUserId: string;
         content: string;
-        createdAt: Date;
+        chatRoomId: string;
     }[]>;
     findOne(currentUserId: string, userId: string): import(".prisma/client").Prisma.Prisma__ChatRoomClient<{
         name: string;

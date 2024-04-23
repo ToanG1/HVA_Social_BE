@@ -1,7 +1,6 @@
 import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
-import { Post } from '@prisma/client';
 export declare class PostService {
     private readonly prismaService;
     constructor(prismaService: PrismaService);
@@ -29,7 +28,16 @@ export declare class PostService {
         isAdmin: boolean;
         id: string;
     }>;
-    findUserById(id: string): Promise<Post | null | undefined>;
+    findByUserId(userId: string): import(".prisma/client").Prisma.PrismaPromise<{
+        id: string;
+        content: string;
+        images: string[];
+        videos: string[];
+        userId: string;
+        isActivated: boolean;
+        createdAt: Date;
+        updatedAt: Date;
+    }[]>;
     findAll(): import(".prisma/client").Prisma.PrismaPromise<({
         user: {
             userInfo: {
