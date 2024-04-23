@@ -11,6 +11,7 @@ import { CreateChatDto } from '../dto/create-chat.dto';
 import { TypingDto } from '../dto/typing.dto';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/guard/auth.guard';
+import { ChatAiApiService } from 'src/modules/ai-api/chat/chat-ai-api.service';
 
 @WebSocketGateway({
   cors: {
@@ -18,7 +19,10 @@ import { AuthGuard } from 'src/guard/auth.guard';
   },
 })
 export class ChatGateway {
-  constructor(private readonly chatService: ChatService) {}
+  constructor(
+    private readonly chatService: ChatService,
+    private readonly chatAiApiService: ChatAiApiService,
+  ) {}
 
   @WebSocketServer()
   server: Server;
@@ -54,5 +58,11 @@ export class ChatGateway {
       throw new ForbiddenException('You are not a member of this chat room');
     }
     this.server.to(typingDto.chatRoomId).emit('typing', typingDto);
+  }
+
+  @UseGuards(AuthGuard)
+  @SubscribeMessage('typing')
+  chatWithAI(@MessageBody() createChatDto: CreateChatDto) {
+    return this.chatAiApiService.chat(createChatDto);
   }
 }

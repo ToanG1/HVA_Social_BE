@@ -22,11 +22,18 @@ export declare class ChatController {
         createdAt: Date;
     })[]>;
     findAllMessagesInChatRoom(chatRoomId: string, req: any): Promise<{
+        chatUser: {
+            user: {
+                userInfo: {
+                    avatar: string;
+                };
+                name: string;
+                id: string;
+            };
+        };
         id: string;
-        chatRoomId: string;
-        chatUserId: string;
         content: string;
-        createdAt: Date;
+        chatRoomId: string;
     }[]>;
     createChatRoom(createChatRoomDto: CreateChatRoomDto, req: any, userId: string): Promise<{
         name: string;

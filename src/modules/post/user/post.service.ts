@@ -2,7 +2,6 @@ import { Body, Injectable, Param } from '@nestjs/common';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
-import { Post } from '@prisma/client';
 
 @Injectable()
 export class PostService {
@@ -36,10 +35,10 @@ export class PostService {
     });
   }
 
-  async findUserById(id: string): Promise<Post | null | undefined> {
-    return await this.prismaService.post.findUnique({
+  findByUserId(userId: string) {
+    return this.prismaService.post.findMany({
       where: {
-        id: id,
+        userId,
       },
     });
   }

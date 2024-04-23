@@ -46,10 +46,10 @@ let PostService = class PostService {
             },
         });
     }
-    async findUserById(id) {
-        return await this.prismaService.post.findUnique({
+    findByUserId(userId) {
+        return this.prismaService.post.findMany({
             where: {
-                id: id,
+                userId,
             },
         });
     }

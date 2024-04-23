@@ -33,7 +33,7 @@ export class PostController {
   async create(@Body() createPostDto: CreatePostDto, @Request() req: any) {
     const post = await this.postService.create(createPostDto, req.user.sub);
 
-    if (await this.checkNSFWPost(post, req.user.sub)) {
+    if (!(await this.checkNSFWPost(post, req.user.sub))) {
       return post;
     }
     await this.postService.remove(post.id);
@@ -44,8 +44,12 @@ export class PostController {
 
   @Get()
   @UseInterceptors(PaginationInterceptor)
-  async findAll() {
-    return await this.postService.findAll();
+  findAll(@Query('userId') userId: string) {
+    console.log(userId);
+    if (userId) {
+      return this.postService.findByUserId(userId);
+    }
+    return this.postService.findAll();
   }
 
   @Get()

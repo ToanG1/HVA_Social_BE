@@ -97,6 +97,26 @@ export class ChatService {
       orderBy: {
         createdAt: 'desc',
       },
+      select: {
+        id: true,
+        content: true,
+        chatRoomId: true,
+        chatUser: {
+          select: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                userInfo: {
+                  select: {
+                    avatar: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     });
   }
 

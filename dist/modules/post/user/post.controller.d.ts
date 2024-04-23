@@ -16,14 +16,7 @@ export declare class PostController {
         createdAt: Date;
         updatedAt: Date;
     }>;
-    findAll(): Promise<({
-        user: {
-            userInfo: {
-                avatar: string;
-            };
-            name: string;
-        };
-    } & {
+    findAll(userId: string): import(".prisma/client").Prisma.PrismaPromise<{
         id: string;
         content: string;
         images: string[];
@@ -32,7 +25,7 @@ export declare class PostController {
         isActivated: boolean;
         createdAt: Date;
         updatedAt: Date;
-    })[]>;
+    }[]>;
     search(content: string): Promise<({
         user: {
             name: string;
@@ -49,8 +42,8 @@ export declare class PostController {
     })[]>;
     findOne(id: string): Promise<{
         user: {
-            name: string;
             id: string;
+            name: string;
         };
     } & {
         id: string;
