@@ -1,9 +1,11 @@
 import { ChatService } from './chat.service';
 import { CreateChatRoomDto } from '../dto/create-chat-room.dto';
 import { CreateChatUserDto } from '../dto/create-chat-user.dto';
+import { ChatAiApiService } from 'src/modules/ai-api/chat/chat-ai-api.service';
 export declare class ChatController {
     private readonly chatService;
-    constructor(chatService: ChatService);
+    private readonly chatAiApiService;
+    constructor(chatService: ChatService, chatAiApiService: ChatAiApiService);
     findAllChatRooms(req: any): import(".prisma/client").Prisma.PrismaPromise<({
         chatUsers: {
             user: {
@@ -56,4 +58,5 @@ export declare class ChatController {
     }>;
     deleteChatUser(chatRoomId: string, userId: string, req: any): Promise<string>;
     deleteChatRoom(chatRoomId: string, req: any): Promise<string>;
+    chatWithAI(): Promise<any>;
 }

@@ -61,8 +61,8 @@ export class ChatGateway {
   }
 
   @UseGuards(AuthGuard)
-  @SubscribeMessage('typing')
-  chatWithAI(@MessageBody() createChatDto: CreateChatDto) {
-    return this.chatAiApiService.chat(createChatDto);
+  @SubscribeMessage('chatWithAI')
+  chatWithAI(@MessageBody() chatAiObj: any) {
+    return this.chatAiApiService.chat(chatAiObj);
   }
 }
