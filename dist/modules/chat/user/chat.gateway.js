@@ -43,8 +43,8 @@ let ChatGateway = class ChatGateway {
         }
         this.server.to(typingDto.chatRoomId).emit('typing', typingDto);
     }
-    chatWithAI(createChatDto) {
-        return this.chatAiApiService.chat(createChatDto);
+    chatWithAI(chatAiObj) {
+        return this.chatAiApiService.chat(chatAiObj);
     }
 };
 exports.ChatGateway = ChatGateway;
@@ -72,10 +72,10 @@ __decorate([
 ], ChatGateway.prototype, "typing", null);
 __decorate([
     (0, common_2.UseGuards)(auth_guard_1.AuthGuard),
-    (0, websockets_1.SubscribeMessage)('typing'),
+    (0, websockets_1.SubscribeMessage)('chatWithAI'),
     __param(0, (0, websockets_1.MessageBody)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_chat_dto_1.CreateChatDto]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], ChatGateway.prototype, "chatWithAI", null);
 exports.ChatGateway = ChatGateway = __decorate([

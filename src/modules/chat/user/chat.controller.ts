@@ -16,11 +16,15 @@ import { ChatService } from './chat.service';
 import { PaginationInterceptor } from 'src/interceptors/pagination.interceptors';
 import { CreateChatRoomDto } from '../dto/create-chat-room.dto';
 import { CreateChatUserDto } from '../dto/create-chat-user.dto';
+import { ChatAiApiService } from 'src/modules/ai-api/chat/chat-ai-api.service';
 
 @Controller('chat')
 @UseGuards(AuthGuard)
 export class ChatController {
-  constructor(private readonly chatService: ChatService) {}
+  constructor(
+    private readonly chatService: ChatService,
+    private readonly chatAiApiService: ChatAiApiService,
+  ) {}
 
   @Get('rooms')
   @UseInterceptors(PaginationInterceptor)
@@ -114,5 +118,10 @@ export class ChatController {
       throw new ForbiddenException();
     }
     return await this.chatService.deleteChatRoom(chatRoomId);
+  }
+
+  @Get('chatWithAI')
+  chatWithAI() {
+    return this.chatAiApiService.initChat();
   }
 }

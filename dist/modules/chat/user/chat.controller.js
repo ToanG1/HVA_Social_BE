@@ -19,9 +19,11 @@ const chat_service_1 = require("./chat.service");
 const pagination_interceptors_1 = require("../../../interceptors/pagination.interceptors");
 const create_chat_room_dto_1 = require("../dto/create-chat-room.dto");
 const create_chat_user_dto_1 = require("../dto/create-chat-user.dto");
+const chat_ai_api_service_1 = require("../../ai-api/chat/chat-ai-api.service");
 let ChatController = class ChatController {
-    constructor(chatService) {
+    constructor(chatService, chatAiApiService) {
         this.chatService = chatService;
+        this.chatAiApiService = chatAiApiService;
     }
     findAllChatRooms(req) {
         return this.chatService.findAllChatRooms(req.user.id);
@@ -64,6 +66,9 @@ let ChatController = class ChatController {
             throw new common_1.ForbiddenException();
         }
         return await this.chatService.deleteChatRoom(chatRoomId);
+    }
+    chatWithAI() {
+        return this.chatAiApiService.initChat();
     }
 };
 exports.ChatController = ChatController;
@@ -118,9 +123,16 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], ChatController.prototype, "deleteChatRoom", null);
+__decorate([
+    (0, common_1.Get)('chatWithAI'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], ChatController.prototype, "chatWithAI", null);
 exports.ChatController = ChatController = __decorate([
     (0, common_1.Controller)('chat'),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
-    __metadata("design:paramtypes", [chat_service_1.ChatService])
+    __metadata("design:paramtypes", [chat_service_1.ChatService,
+        chat_ai_api_service_1.ChatAiApiService])
 ], ChatController);
 //# sourceMappingURL=chat.controller.js.map
