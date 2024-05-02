@@ -14,20 +14,6 @@ export declare class PostService {
         createdAt: Date;
         updatedAt: Date;
     }>;
-    getPost(userId: string): Promise<{
-        userInfo: {
-            id: string;
-            userId: string;
-            avatar: string;
-            about: string;
-            createdAt: Date;
-            updatedAt: Date;
-        };
-        name: string;
-        email: string;
-        isAdmin: boolean;
-        id: string;
-    }>;
     findByUserId(userId: string): import(".prisma/client").Prisma.PrismaPromise<{
         id: string;
         content: string;
@@ -45,6 +31,14 @@ export declare class PostService {
             };
             name: string;
         };
+        reacts: {
+            user: {
+                userInfo: {
+                    avatar: string;
+                };
+                name: string;
+            };
+        }[];
     } & {
         id: string;
         content: string;
@@ -57,9 +51,17 @@ export declare class PostService {
     })[]>;
     findOne(id: string): Promise<{
         user: {
-            name: string;
             id: string;
+            name: string;
         };
+        reacts: {
+            user: {
+                userInfo: {
+                    avatar: string;
+                };
+                name: string;
+            };
+        }[];
     } & {
         id: string;
         content: string;
@@ -69,20 +71,6 @@ export declare class PostService {
         isActivated: boolean;
         createdAt: Date;
         updatedAt: Date;
-    }>;
-    get(userId: string): Promise<{
-        userInfo: {
-            id: string;
-            userId: string;
-            avatar: string;
-            about: string;
-            createdAt: Date;
-            updatedAt: Date;
-        };
-        name: string;
-        email: string;
-        isAdmin: boolean;
-        id: string;
     }>;
     update(id: string, updatePostDto: UpdatePostDto): Promise<{
         id: string;
@@ -97,6 +85,9 @@ export declare class PostService {
     remove(Id: string): Promise<string>;
     search(searchString: string): import(".prisma/client").Prisma.PrismaPromise<({
         user: {
+            userInfo: {
+                avatar: string;
+            };
             name: string;
         };
     } & {

@@ -10,5 +10,5 @@ export declare class ChatGateway {
     server: Server;
     create(createChatDto: CreateChatDto, req: any): Promise<void>;
     typing(typingDto: TypingDto, req: any): void;
-    chatWithAI(chatAiObj: any): Promise<any>;
+    chatWithAI(chatAiObj: any): void;
 }

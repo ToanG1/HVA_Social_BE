@@ -32,24 +32,13 @@ let PostService = class PostService {
             },
         });
     }
-    async getPost(userId) {
-        return this.prismaService.user.findUnique({
-            where: {
-                id: userId,
-            },
-            select: {
-                id: true,
-                name: true,
-                email: true,
-                isAdmin: true,
-                userInfo: true,
-            },
-        });
-    }
     findByUserId(userId) {
         return this.prismaService.post.findMany({
             where: {
                 userId,
+            },
+            orderBy: {
+                createdAt: 'desc',
             },
         });
     }
@@ -65,6 +54,20 @@ let PostService = class PostService {
                         userInfo: {
                             select: {
                                 avatar: true,
+                            },
+                        },
+                    },
+                },
+                reacts: {
+                    select: {
+                        user: {
+                            select: {
+                                name: true,
+                                userInfo: {
+                                    select: {
+                                        avatar: true,
+                                    },
+                                },
                             },
                         },
                     },
@@ -87,23 +90,23 @@ let PostService = class PostService {
                         id: true,
                     },
                 },
+                reacts: {
+                    select: {
+                        user: {
+                            select: {
+                                name: true,
+                                userInfo: {
+                                    select: {
+                                        avatar: true,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
             },
         });
         return q;
-    }
-    async get(userId) {
-        return this.prismaService.user.findUnique({
-            where: {
-                id: userId,
-            },
-            select: {
-                id: true,
-                name: true,
-                email: true,
-                isAdmin: true,
-                userInfo: true,
-            },
-        });
     }
     async update(id, updatePostDto) {
         const post = this.prismaService.post.update({
@@ -145,6 +148,11 @@ let PostService = class PostService {
                 user: {
                     select: {
                         name: true,
+                        userInfo: {
+                            select: {
+                                avatar: true,
+                            },
+                        },
                     },
                 },
             },

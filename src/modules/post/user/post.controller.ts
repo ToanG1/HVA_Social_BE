@@ -45,7 +45,6 @@ export class PostController {
   @Get()
   @UseInterceptors(PaginationInterceptor)
   findAll(@Query('userId') userId: string) {
-    console.log(userId);
     if (userId) {
       return this.postService.findByUserId(userId);
     }

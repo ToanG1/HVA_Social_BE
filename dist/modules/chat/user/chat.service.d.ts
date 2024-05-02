@@ -38,8 +38,8 @@ export declare class ChatService {
                 userInfo: {
                     avatar: string;
                 };
-                name: string;
                 id: string;
+                name: string;
             };
         };
         id: string;
@@ -47,8 +47,8 @@ export declare class ChatService {
         chatRoomId: string;
     }[]>;
     findOne(currentUserId: string, userId: string): import(".prisma/client").Prisma.Prisma__ChatRoomClient<{
-        name: string;
         id: string;
+        name: string;
         chatUsers: {
             user: {
                 userInfo: {

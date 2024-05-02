@@ -41,9 +41,10 @@ export class ChatGateway {
       throw new ForbiddenException('You are not a member of this chat room');
     }
     createChatDto.chatUserId = chatUser.id;
-    this.server
-      .to(createChatDto.chatRoomId)
-      .emit('message', await this.chatService.createChat(createChatDto));
+    this.server.emit(
+      'message',
+      await this.chatService.createChat(createChatDto),
+    );
   }
 
   @UseGuards(AuthGuard)
@@ -57,12 +58,12 @@ export class ChatGateway {
     ) {
       throw new ForbiddenException('You are not a member of this chat room');
     }
-    this.server.to(typingDto.chatRoomId).emit('typing', typingDto);
+    this.server.emit('typing', typingDto);
   }
 
   @UseGuards(AuthGuard)
   @SubscribeMessage('chatWithAI')
   chatWithAI(@MessageBody() chatAiObj: any) {
-    return this.chatAiApiService.chat(chatAiObj);
+    this.server.emit('chatWithAI', this.chatAiApiService.chat(chatAiObj));
   }
 }

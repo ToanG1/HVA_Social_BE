@@ -35,7 +35,6 @@ let PostController = class PostController {
         throw new common_1.NotAcceptableException('Your post violated our Community Standard for NSFW content');
     }
     findAll(userId) {
-        console.log(userId);
         if (userId) {
             return this.postService.findByUserId(userId);
         }

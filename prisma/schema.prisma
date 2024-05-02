@@ -29,6 +29,7 @@ model User {
   ViolationSC       ViolationSC[]
   chatRooms         ChatRoom[]
   chatUsers         ChatUser[]
+  postReacts        PostReact[]
 }
 
 model Token {
@@ -61,6 +62,7 @@ model Follow {
   followed   User     @relation(name: "followed", fields: [followedId], references: [id])
   followedId String
   createdAt  DateTime @default(now())
+
   @@unique([followerId, followedId])
 }
 
@@ -76,6 +78,19 @@ model Post {
 
   user     User          @relation(fields: [userId], references: [id])
   comments PostComment[]
+  reacts   PostReact[]
+}
+
+model PostReact {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([postId, userId])
 }
 
 model PostComment {
