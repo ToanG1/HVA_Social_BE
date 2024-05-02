@@ -30,6 +30,7 @@ model User {
   chatRooms         ChatRoom[]
   chatUsers         ChatUser[]
   postReacts        PostReact[]
+  postSaveds PostSaved[]
 }
 
 model Token {
@@ -79,6 +80,19 @@ model Post {
   user     User          @relation(fields: [userId], references: [id])
   comments PostComment[]
   reacts   PostReact[]
+  saved PostSaved[]
+}
+
+model PostSaved {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([postId, userId])
 }
 
 model PostReact {

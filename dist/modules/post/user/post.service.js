@@ -158,6 +158,44 @@ let PostService = class PostService {
             },
         });
     }
+    async savePost(postId, userId) {
+        const existed = await this.prismaService.postSaved.findUnique({
+            where: {
+                postId_userId: {
+                    postId,
+                    userId,
+                },
+            },
+        });
+        if (existed) {
+            await this.prismaService.postSaved.delete({
+                where: {
+                    postId_userId: {
+                        postId,
+                        userId,
+                    },
+                },
+            });
+        }
+        else {
+            await this.prismaService.postSaved.create({
+                data: {
+                    postId,
+                    userId,
+                },
+            });
+        }
+    }
+    getPostSaved(userId) {
+        return this.prismaService.postSaved.findMany({
+            where: {
+                userId,
+            },
+            include: {
+                post: true,
+            },
+        });
+    }
 };
 exports.PostService = PostService;
 __decorate([

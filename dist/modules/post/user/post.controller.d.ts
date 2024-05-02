@@ -16,6 +16,25 @@ export declare class PostController {
         createdAt: Date;
         updatedAt: Date;
     }>;
+    savePost(postId: string, req: any): void;
+    getPostSaved(req: any): import(".prisma/client").Prisma.PrismaPromise<({
+        post: {
+            id: string;
+            content: string;
+            images: string[];
+            videos: string[];
+            userId: string;
+            isActivated: boolean;
+            createdAt: Date;
+            updatedAt: Date;
+        };
+    } & {
+        id: string;
+        postId: string;
+        userId: string;
+        createdAt: Date;
+        updatedAt: Date;
+    })[]>;
     findAll(userId: string): import(".prisma/client").Prisma.PrismaPromise<{
         id: string;
         content: string;

@@ -42,6 +42,19 @@ export class PostController {
     );
   }
 
+  @Post('save')
+  @UseGuards(AuthGuard)
+  savePost(@Query('postId') postId: string, @Request() req: any) {
+    this.postService.savePost(postId, req.user.sub);
+  }
+
+  @Get('save')
+  @UseGuards(AuthGuard)
+  @UseInterceptors(PaginationInterceptor)
+  getPostSaved(@Request() req: any) {
+    return this.postService.getPostSaved(req.user.sub);
+  }
+
   @Get()
   @UseInterceptors(PaginationInterceptor)
   findAll(@Query('userId') userId: string) {
