@@ -34,8 +34,13 @@ let PostController = class PostController {
         await this.postService.remove(post.id);
         throw new common_1.NotAcceptableException('Your post violated our Community Standard for NSFW content');
     }
+    savePost(postId, req) {
+        this.postService.savePost(postId, req.user.sub);
+    }
+    getPostSaved(req) {
+        return this.postService.getPostSaved(req.user.sub);
+    }
     findAll(userId) {
-        console.log(userId);
         if (userId) {
             return this.postService.findByUserId(userId);
         }
@@ -111,6 +116,24 @@ __decorate([
     __metadata("design:paramtypes", [create_post_dto_1.CreatePostDto, Object]),
     __metadata("design:returntype", Promise)
 ], PostController.prototype, "create", null);
+__decorate([
+    (0, common_1.Post)('save'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __param(0, (0, common_1.Query)('postId')),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], PostController.prototype, "savePost", null);
+__decorate([
+    (0, common_1.Get)('save'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.UseInterceptors)(pagination_interceptors_1.PaginationInterceptor),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], PostController.prototype, "getPostSaved", null);
 __decorate([
     (0, common_1.Get)(),
     (0, common_1.UseInterceptors)(pagination_interceptors_1.PaginationInterceptor),

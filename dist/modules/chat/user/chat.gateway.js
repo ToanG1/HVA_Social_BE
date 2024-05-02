@@ -33,18 +33,16 @@ let ChatGateway = class ChatGateway {
             throw new common_1.ForbiddenException('You are not a member of this chat room');
         }
         createChatDto.chatUserId = chatUser.id;
-        this.server
-            .to(createChatDto.chatRoomId)
-            .emit('message', await this.chatService.createChat(createChatDto));
+        this.server.emit('message', await this.chatService.createChat(createChatDto));
     }
     typing(typingDto, req) {
         if (!this.chatService.isUserBelongToChatRoom(req.user.sub, typingDto.chatRoomId)) {
             throw new common_1.ForbiddenException('You are not a member of this chat room');
         }
-        this.server.to(typingDto.chatRoomId).emit('typing', typingDto);
+        this.server.emit('typing', typingDto);
     }
     chatWithAI(chatAiObj) {
-        return this.chatAiApiService.chat(chatAiObj);
+        this.server.emit('chatWithAI', this.chatAiApiService.chat(chatAiObj));
     }
 };
 exports.ChatGateway = ChatGateway;
