@@ -14,6 +14,7 @@ import { ChatModule } from './modules/chat/chat.module';
 import { MinioClientModule } from './modules/minio-client/minio-client.module';
 import { FollowModule } from './modules/follow/follow.module';
 import { ReactModule } from './modules/react/react.module';
+import { StoryModule } from './modules/story/story.module';
 @Module({
   imports: [
     UserModule,
@@ -29,6 +30,7 @@ import { ReactModule } from './modules/react/react.module';
     ChatModule,
     FollowModule,
     ReactModule,
+    StoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -26,18 +26,18 @@ export declare class PostService {
     }[]>;
     findAll(): import(".prisma/client").Prisma.PrismaPromise<({
         user: {
-            name: string;
             userInfo: {
                 avatar: string;
             };
+            name: string;
         };
         reacts: {
             user: {
-                id: string;
-                name: string;
                 userInfo: {
                     avatar: string;
                 };
+                id: string;
+                name: string;
             };
         }[];
     } & {
@@ -57,11 +57,11 @@ export declare class PostService {
         };
         reacts: {
             user: {
-                id: string;
-                name: string;
                 userInfo: {
                     avatar: string;
                 };
+                id: string;
+                name: string;
             };
         }[];
     } & {
@@ -87,10 +87,10 @@ export declare class PostService {
     remove(Id: string): Promise<string>;
     search(searchString: string): import(".prisma/client").Prisma.PrismaPromise<({
         user: {
-            name: string;
             userInfo: {
                 avatar: string;
             };
+            name: string;
         };
     } & {
         id: string;

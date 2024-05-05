@@ -23,6 +23,7 @@ const chat_module_1 = require("./modules/chat/chat.module");
 const minio_client_module_1 = require("./modules/minio-client/minio-client.module");
 const follow_module_1 = require("./modules/follow/follow.module");
 const react_module_1 = require("./modules/react/react.module");
+const story_module_1 = require("./modules/story/story.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -42,6 +43,7 @@ exports.AppModule = AppModule = __decorate([
             chat_module_1.ChatModule,
             follow_module_1.FollowModule,
             react_module_1.ReactModule,
+            story_module_1.StoryModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

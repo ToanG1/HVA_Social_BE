@@ -13,15 +13,15 @@ export declare class FollowController {
             userInfo: {
                 avatar: string;
             };
-            name: string;
             id: string;
+            name: string;
         };
         followed: {
             userInfo: {
                 avatar: string;
             };
-            name: string;
             id: string;
+            name: string;
         };
     }[]>;
     findAllOfUser(userId: string): import(".prisma/client").Prisma.PrismaPromise<{
@@ -29,15 +29,15 @@ export declare class FollowController {
             userInfo: {
                 avatar: string;
             };
-            name: string;
             id: string;
+            name: string;
         };
         followed: {
             userInfo: {
                 avatar: string;
             };
-            name: string;
             id: string;
+            name: string;
         };
     }[]>;
 }
