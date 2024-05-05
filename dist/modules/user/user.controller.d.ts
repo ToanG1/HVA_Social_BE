@@ -28,10 +28,10 @@ export declare class UserController {
             createdAt: Date;
             updatedAt: Date;
         };
-        id: string;
         name: string;
         email: string;
         isAdmin: boolean;
+        id: string;
     }>;
     updateUser(userId: string, userUpdate: UpdateUserDto): Promise<{
         id: string;

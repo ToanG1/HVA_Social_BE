@@ -33,6 +33,7 @@ export declare class PostService {
         };
         reacts: {
             user: {
+                id: string;
                 name: string;
                 userInfo: {
                     avatar: string;
@@ -56,6 +57,7 @@ export declare class PostService {
         };
         reacts: {
             user: {
+                id: string;
                 name: string;
                 userInfo: {
                     avatar: string;

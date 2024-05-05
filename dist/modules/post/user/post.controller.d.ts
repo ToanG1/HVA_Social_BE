@@ -69,6 +69,7 @@ export declare class PostController {
         };
         reacts: {
             user: {
+                id: string;
                 name: string;
                 userInfo: {
                     avatar: string;

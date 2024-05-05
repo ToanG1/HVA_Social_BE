@@ -51,6 +51,7 @@ export class PostService {
           select: {
             user: {
               select: {
+                id: true,
                 name: true,
                 userInfo: {
                   select: {
@@ -69,7 +70,7 @@ export class PostService {
   }
 
   async findOne(id: string) {
-    const q = await this.prismaService.post.findUnique({
+    return await this.prismaService.post.findUnique({
       where: {
         id,
       },
@@ -84,6 +85,7 @@ export class PostService {
           select: {
             user: {
               select: {
+                id: true,
                 name: true,
                 userInfo: {
                   select: {
@@ -96,11 +98,10 @@ export class PostService {
         },
       },
     });
-    return q;
   }
 
   async update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    const post = this.prismaService.post.update({
+    return this.prismaService.post.update({
       where: {
         id: id,
       },
@@ -111,7 +112,6 @@ export class PostService {
         updatedAt: new Date(),
       },
     });
-    return post;
   }
 
   async remove(Id: string) {

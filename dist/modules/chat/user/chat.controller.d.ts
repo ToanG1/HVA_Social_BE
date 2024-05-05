@@ -29,8 +29,8 @@ export declare class ChatController {
                 userInfo: {
                     avatar: string;
                 };
-                id: string;
                 name: string;
+                id: string;
             };
         };
         id: string;
@@ -38,8 +38,8 @@ export declare class ChatController {
         chatRoomId: string;
     }[]>;
     createChatRoom(createChatRoomDto: CreateChatRoomDto, req: any, userId: string): Promise<{
-        id: string;
         name: string;
+        id: string;
         chatUsers: {
             user: {
                 userInfo: {
