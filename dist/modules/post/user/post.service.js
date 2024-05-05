@@ -62,6 +62,7 @@ let PostService = class PostService {
                     select: {
                         user: {
                             select: {
+                                id: true,
                                 name: true,
                                 userInfo: {
                                     select: {
@@ -79,7 +80,7 @@ let PostService = class PostService {
         });
     }
     async findOne(id) {
-        const q = await this.prismaService.post.findUnique({
+        return await this.prismaService.post.findUnique({
             where: {
                 id,
             },
@@ -94,6 +95,7 @@ let PostService = class PostService {
                     select: {
                         user: {
                             select: {
+                                id: true,
                                 name: true,
                                 userInfo: {
                                     select: {
@@ -106,10 +108,9 @@ let PostService = class PostService {
                 },
             },
         });
-        return q;
     }
     async update(id, updatePostDto) {
-        const post = this.prismaService.post.update({
+        return this.prismaService.post.update({
             where: {
                 id: id,
             },
@@ -120,7 +121,6 @@ let PostService = class PostService {
                 updatedAt: new Date(),
             },
         });
-        return post;
     }
     async remove(Id) {
         const deleteReplies = this.prismaService.postComment.deleteMany({
