@@ -64,16 +64,16 @@ export declare class PostController {
     })[]>;
     findOne(id: string): Promise<{
         user: {
-            id: string;
             name: string;
+            id: string;
         };
         reacts: {
             user: {
                 userInfo: {
                     avatar: string;
                 };
-                id: string;
                 name: string;
+                id: string;
             };
         }[];
     } & {
