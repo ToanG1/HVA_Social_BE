@@ -36,8 +36,8 @@ export declare class PostService {
                 userInfo: {
                     avatar: string;
                 };
-                id: string;
                 name: string;
+                id: string;
             };
         }[];
     } & {
@@ -52,16 +52,16 @@ export declare class PostService {
     })[]>;
     findOne(id: string): Promise<{
         user: {
-            id: string;
             name: string;
+            id: string;
         };
         reacts: {
             user: {
                 userInfo: {
                     avatar: string;
                 };
-                id: string;
                 name: string;
+                id: string;
             };
         }[];
     } & {

@@ -33,10 +33,10 @@ export declare class UserService {
             createdAt: Date;
             updatedAt: Date;
         };
-        id: string;
         name: string;
         email: string;
         isAdmin: boolean;
+        id: string;
     }>;
     updateUser(userId: string, updateUser: UpdateUserDto): Promise<{
         id: string;

@@ -15,6 +15,7 @@ import { MinioClientModule } from './modules/minio-client/minio-client.module';
 import { FollowModule } from './modules/follow/follow.module';
 import { ReactModule } from './modules/react/react.module';
 import { StoryModule } from './modules/story/story.module';
+import { S3Module } from './modules/s3/s3.module';
 @Module({
   imports: [
     UserModule,
@@ -31,6 +32,7 @@ import { StoryModule } from './modules/story/story.module';
     FollowModule,
     ReactModule,
     StoryModule,
+    S3Module,
   ],
   controllers: [AppController],
   providers: [AppService],
