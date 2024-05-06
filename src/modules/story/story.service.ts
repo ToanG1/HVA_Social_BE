@@ -5,10 +5,11 @@ import { PrismaService } from '../prisma/prisma.service';
 export class StoryService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  create(image: string, userId: string) {
+  create(image: string, content: string, userId: string) {
     return this.prismaService.story.create({
       data: {
         image,
+        content,
         userId,
       },
     });
