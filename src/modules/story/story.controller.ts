@@ -16,8 +16,12 @@ export class StoryController {
   constructor(private readonly storyService: StoryService) {}
 
   @Post()
-  create(@Query('image') image: string, @Request() req: any) {
-    return this.storyService.create(image, req.user.sub);
+  create(
+    @Query('image') image: string,
+    @Query('content') content: string,
+    @Request() req: any,
+  ) {
+    return this.storyService.create(image, content, req.user.sub);
   }
 
   @Get()
