@@ -95,7 +95,7 @@ export class ChatService {
         chatRoomId: chatRoomId,
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: 'asc',
       },
       select: {
         id: true,
