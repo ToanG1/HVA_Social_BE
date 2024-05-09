@@ -6,11 +6,14 @@ import { PrismaService } from '../prisma/prisma.service';
 import { MailSenderService } from '../mail-sender/mail-sender.service';
 import { NSFWApiService } from '../ai-api/nsfw-content/nsfw-api.service';
 import { HttpModule } from '@nestjs/axios';
+import { PostAdminController } from './admin/post-admin.controller';
+import { PostAdminService } from './admin/post-admin.service';
 
 @Module({
-  controllers: [PostController],
+  controllers: [PostController, PostAdminController],
   providers: [
     PostService,
+    PostAdminService,
     UserService,
     PrismaService,
     MailSenderService,

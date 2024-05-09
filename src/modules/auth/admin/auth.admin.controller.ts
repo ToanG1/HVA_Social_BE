@@ -17,8 +17,9 @@ export class AuthAdminController {
 
   @Post('login')
   async login(@Body() signInDto: LoginDto) {
-    if (await this.authService.isUserAdmin(signInDto.email))
+    if (await this.authService.isUserAdmin(signInDto.email)) {
       return this.authService.login(signInDto);
+    }
   }
 
   @Post('refresh')
