@@ -18,4 +18,12 @@ export class ChatAiApiService {
     );
     return data;
   }
+
+  async chatWithVision(dataObject: any) {
+    const { data } = await this.httpService.axiosRef.post(
+      `${AI_URL}/chatWithVision?image=${dataObject.image}`,
+      dataObject,
+    );
+    return data;
+  }
 }
