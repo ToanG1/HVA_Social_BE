@@ -65,7 +65,7 @@ export class ChatGateway {
   @SubscribeMessage('chatWithAI')
   async chatWithAI(@MessageBody() chatAiObj: any) {
     let response;
-    if (chatAiObj.image) {
+    if (!chatAiObj.image) {
       response = await this.chatAiApiService.chat(chatAiObj);
     } else {
       response = await this.chatAiApiService.chatWithVision(chatAiObj);
