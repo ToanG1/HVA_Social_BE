@@ -63,7 +63,13 @@ export class ChatGateway {
 
   @UseGuards(AuthGuard)
   @SubscribeMessage('chatWithAI')
-  chatWithAI(@MessageBody() chatAiObj: any) {
-    this.server.emit('chatWithAI', this.chatAiApiService.chat(chatAiObj));
+  async chatWithAI(@MessageBody() chatAiObj: any) {
+    let response;
+    if (chatAiObj.image) {
+      response = await this.chatAiApiService.chat(chatAiObj);
+    } else {
+      response = await this.chatAiApiService.chatWithVision(chatAiObj);
+    }
+    this.server.emit('chatWithAI', response);
   }
 }
