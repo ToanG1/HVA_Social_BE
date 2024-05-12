@@ -22,8 +22,9 @@ let AuthAdminController = class AuthAdminController {
         this.authService = authService;
     }
     async login(signInDto) {
-        if (await this.authService.isUserAdmin(signInDto.email))
+        if (await this.authService.isUserAdmin(signInDto.email)) {
             return this.authService.login(signInDto);
+        }
     }
     refreshToken(refreshToken) {
         if (refreshToken) {

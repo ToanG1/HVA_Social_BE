@@ -4,4 +4,5 @@ export declare class ChatAiApiService {
     constructor(httpService: HttpService);
     initChat(): Promise<any>;
     chat(dataObject: any): Promise<any>;
+    chatWithVision(dataObject: any): Promise<any>;
 }
