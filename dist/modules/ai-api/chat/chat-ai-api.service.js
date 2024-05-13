@@ -25,6 +25,10 @@ let ChatAiApiService = class ChatAiApiService {
         const { data } = await this.httpService.axiosRef.post(`${ai_url_constant_1.AI_URL}/chat`, dataObject);
         return data;
     }
+    async chatWithVision(dataObject) {
+        const { data } = await this.httpService.axiosRef.post(`${ai_url_constant_1.AI_URL}/chatWithVision?image=${dataObject.image}`, dataObject);
+        return data;
+    }
 };
 exports.ChatAiApiService = ChatAiApiService;
 exports.ChatAiApiService = ChatAiApiService = __decorate([

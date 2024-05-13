@@ -41,8 +41,15 @@ let ChatGateway = class ChatGateway {
         }
         this.server.emit('typing', typingDto);
     }
-    chatWithAI(chatAiObj) {
-        this.server.emit('chatWithAI', this.chatAiApiService.chat(chatAiObj));
+    async chatWithAI(chatAiObj) {
+        let response;
+        if (chatAiObj.image) {
+            response = await this.chatAiApiService.chatWithVision(chatAiObj);
+        }
+        else {
+            response = await this.chatAiApiService.chat(chatAiObj);
+        }
+        this.server.emit('chatWithAI', response);
     }
 };
 exports.ChatGateway = ChatGateway;
@@ -74,7 +81,7 @@ __decorate([
     __param(0, (0, websockets_1.MessageBody)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ChatGateway.prototype, "chatWithAI", null);
 exports.ChatGateway = ChatGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({
