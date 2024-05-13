@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { UpdatePostDto } from '../dto/update-post.dto';
 
 @Injectable()
 export class PostAdminService {
@@ -38,6 +39,20 @@ export class PostAdminService {
         reacts: post.reacts.length,
         saved: post.saved.length,
       };
+    });
+  }
+
+  update(id: string, updatePostDto: UpdatePostDto) {
+    return this.prismaService.post.update({
+      where: {
+        id: id,
+      },
+      data: {
+        content: updatePostDto.content || undefined,
+        videos: updatePostDto.videos || undefined,
+        images: updatePostDto.images || undefined,
+        updatedAt: new Date(),
+      },
     });
   }
 
