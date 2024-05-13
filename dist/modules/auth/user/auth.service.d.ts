@@ -1,4 +1,4 @@
-import { UserService } from '../../user/user.service';
+import { UserService } from '../../user/user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from '../authDto/login.dto';
 import { CreateUserDto } from '../../user/userDTO/createUser.dto';

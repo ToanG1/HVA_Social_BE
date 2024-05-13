@@ -1,7 +1,7 @@
 import { CreateUserDto } from 'src/modules/user/userDTO/createUser.dto';
 import { AuthService } from './auth.service';
 import { LoginDto } from '../authDto/login.dto';
-import { UserService } from '../../user/user.service';
+import { UserService } from '../../user/user/user.service';
 import { NotificationsService } from 'src/modules/notifications/notifications.service';
 export declare class AuthController {
     private authService;

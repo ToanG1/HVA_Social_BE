@@ -18,7 +18,7 @@ const createUser_dto_1 = require("../../user/userDTO/createUser.dto");
 const auth_service_1 = require("./auth.service");
 const login_dto_1 = require("../authDto/login.dto");
 const auth_guard_1 = require("../../../guard/auth.guard");
-const user_service_1 = require("../../user/user.service");
+const user_service_1 = require("../../user/user/user.service");
 const notifications_service_1 = require("../../notifications/notifications.service");
 let AuthController = class AuthController {
     constructor(authService, userService, notificationService) {
