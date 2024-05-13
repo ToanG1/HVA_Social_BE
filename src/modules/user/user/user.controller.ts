@@ -14,8 +14,8 @@ import {
   Request,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './userDTO/createUser.dto';
-import { UpdateUserDto } from './userDTO/updateUser.dto';
+import { CreateUserDto } from '../userDTO/createUser.dto';
+import { UpdateUserDto } from '../userDTO/updateUser.dto';
 import { AuthGuard } from 'src/guard/auth.guard';
 
 @Controller('user')

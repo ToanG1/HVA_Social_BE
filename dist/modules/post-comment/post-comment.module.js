@@ -11,7 +11,7 @@ const common_1 = require("@nestjs/common");
 const post_comment_service_1 = require("./user/post-comment.service");
 const post_comment_controller_1 = require("./user/post-comment.controller");
 const prisma_service_1 = require("../prisma/prisma.service");
-const user_service_1 = require("../user/user.service");
+const user_service_1 = require("../user/user/user.service");
 let PostCommentModule = class PostCommentModule {
 };
 exports.PostCommentModule = PostCommentModule;

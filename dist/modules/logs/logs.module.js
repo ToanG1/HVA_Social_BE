@@ -10,7 +10,7 @@ exports.LogsModule = void 0;
 const common_1 = require("@nestjs/common");
 const logs_service_1 = require("./logs.service");
 const prisma_service_1 = require("../prisma/prisma.service");
-const user_service_1 = require("../user/user.service");
+const user_service_1 = require("../user/user/user.service");
 let LogsModule = class LogsModule {
 };
 exports.LogsModule = LogsModule;

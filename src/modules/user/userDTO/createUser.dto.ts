@@ -24,7 +24,7 @@ export class CreateUserDto {
     type: String,
   })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   password: string;
 
   @ApiProperty({
