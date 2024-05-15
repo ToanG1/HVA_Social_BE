@@ -17,6 +17,6 @@ export class S3Controller {
   @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('image'))
   async uploadImage(@UploadedFile() file: Express.Multer.File) {
-    return this.s3Service.uploadFileToPublicBucket(file);
+    return { url: await this.s3Service.uploadFileToPublicBucket(file) };
   }
 }
