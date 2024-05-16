@@ -19,6 +19,22 @@ export declare class PostController {
     savePost(postId: string, req: any): void;
     getPostSaved(req: any): import(".prisma/client").Prisma.PrismaPromise<({
         post: {
+            user: {
+                name: string;
+                userInfo: {
+                    avatar: string;
+                };
+            };
+            reacts: {
+                user: {
+                    id: string;
+                    name: string;
+                    userInfo: {
+                        avatar: string;
+                    };
+                };
+            }[];
+        } & {
             id: string;
             content: string;
             images: string[];
@@ -35,7 +51,23 @@ export declare class PostController {
         createdAt: Date;
         updatedAt: Date;
     })[]>;
-    findAll(userId: string): import(".prisma/client").Prisma.PrismaPromise<{
+    findAll(userId: string): import(".prisma/client").Prisma.PrismaPromise<({
+        user: {
+            name: string;
+            userInfo: {
+                avatar: string;
+            };
+        };
+        reacts: {
+            user: {
+                id: string;
+                name: string;
+                userInfo: {
+                    avatar: string;
+                };
+            };
+        }[];
+    } & {
         id: string;
         content: string;
         images: string[];
@@ -44,14 +76,23 @@ export declare class PostController {
         isActivated: boolean;
         createdAt: Date;
         updatedAt: Date;
-    }[]>;
+    })[]>;
     search(content: string): Promise<({
         user: {
+            name: string;
             userInfo: {
                 avatar: string;
             };
-            name: string;
         };
+        reacts: {
+            user: {
+                id: string;
+                name: string;
+                userInfo: {
+                    avatar: string;
+                };
+            };
+        }[];
     } & {
         id: string;
         content: string;
@@ -64,16 +105,16 @@ export declare class PostController {
     })[]>;
     findOne(id: string): Promise<{
         user: {
-            name: string;
             id: string;
+            name: string;
         };
         reacts: {
             user: {
+                id: string;
+                name: string;
                 userInfo: {
                     avatar: string;
                 };
-                name: string;
-                id: string;
             };
         }[];
     } & {
@@ -97,5 +138,5 @@ export declare class PostController {
         updatedAt: Date;
     }>;
     remove(id: string, req: any): Promise<string>;
-    checkNSFWPost(post: any, userId: string): Promise<any>;
+    checkNSFWPost(post: any, userId: string): Promise<boolean>;
 }

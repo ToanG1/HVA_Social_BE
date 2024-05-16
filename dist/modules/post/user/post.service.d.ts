@@ -14,7 +14,23 @@ export declare class PostService {
         createdAt: Date;
         updatedAt: Date;
     }>;
-    findByUserId(userId: string): import(".prisma/client").Prisma.PrismaPromise<{
+    findByUserId(userId: string): import(".prisma/client").Prisma.PrismaPromise<({
+        user: {
+            userInfo: {
+                avatar: string;
+            };
+            name: string;
+        };
+        reacts: {
+            user: {
+                userInfo: {
+                    avatar: string;
+                };
+                name: string;
+                id: string;
+            };
+        }[];
+    } & {
         id: string;
         content: string;
         images: string[];
@@ -23,7 +39,7 @@ export declare class PostService {
         isActivated: boolean;
         createdAt: Date;
         updatedAt: Date;
-    }[]>;
+    })[]>;
     findAll(): import(".prisma/client").Prisma.PrismaPromise<({
         user: {
             userInfo: {
@@ -92,6 +108,15 @@ export declare class PostService {
             };
             name: string;
         };
+        reacts: {
+            user: {
+                userInfo: {
+                    avatar: string;
+                };
+                name: string;
+                id: string;
+            };
+        }[];
     } & {
         id: string;
         content: string;
@@ -105,6 +130,22 @@ export declare class PostService {
     savePost(postId: string, userId: string): Promise<void>;
     getPostSaved(userId: string): import(".prisma/client").Prisma.PrismaPromise<({
         post: {
+            user: {
+                userInfo: {
+                    avatar: string;
+                };
+                name: string;
+            };
+            reacts: {
+                user: {
+                    userInfo: {
+                        avatar: string;
+                    };
+                    name: string;
+                    id: string;
+                };
+            }[];
+        } & {
             id: string;
             content: string;
             images: string[];
