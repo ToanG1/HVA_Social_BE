@@ -25,6 +25,33 @@ export class PostService {
       where: {
         userId,
       },
+      include: {
+        user: {
+          select: {
+            name: true,
+            userInfo: {
+              select: {
+                avatar: true,
+              },
+            },
+          },
+        },
+        reacts: {
+          select: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                userInfo: {
+                  select: {
+                    avatar: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
       orderBy: {
         createdAt: 'desc',
       },
@@ -147,6 +174,21 @@ export class PostService {
             },
           },
         },
+        reacts: {
+          select: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                userInfo: {
+                  select: {
+                    avatar: true,
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
   }
@@ -185,7 +227,35 @@ export class PostService {
         userId,
       },
       include: {
-        post: true,
+        post: {
+          include: {
+            user: {
+              select: {
+                name: true,
+                userInfo: {
+                  select: {
+                    avatar: true,
+                  },
+                },
+              },
+            },
+            reacts: {
+              select: {
+                user: {
+                  select: {
+                    id: true,
+                    name: true,
+                    userInfo: {
+                      select: {
+                        avatar: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
   }

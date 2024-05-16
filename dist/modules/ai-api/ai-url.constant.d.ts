@@ -1,1 +1,1 @@
-export declare const AI_URL = "http://127.0.0.1:5009/api";
+export declare const AI_URL = "http://13.229.152.52:5009/api";

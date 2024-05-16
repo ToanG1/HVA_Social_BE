@@ -28,7 +28,7 @@ let PostController = class PostController {
     }
     async create(createPostDto, req) {
         const post = await this.postService.create(createPostDto, req.user.sub);
-        if (!(await this.checkNSFWPost(post, req.user.sub))) {
+        if (await this.checkNSFWPost(post, req.user.sub)) {
             return post;
         }
         await this.postService.remove(post.id);
@@ -58,7 +58,7 @@ let PostController = class PostController {
             throw new common_1.ForbiddenException();
         }
         const updatedPost = await this.postService.update(id, updatePostDto);
-        if (this.checkNSFWPost(updatedPost, req.user.sub)) {
+        if (await this.checkNSFWPost(updatedPost, req.user.sub)) {
             return updatedPost;
         }
         await this.postService.remove(updatedPost.id);
@@ -88,10 +88,10 @@ let PostController = class PostController {
                 return false;
             }
         }
-        if (post.images) {
-            return post.images.forEach(async (image) => {
+        if (post.images.length > 0) {
+            for (const image of post.images) {
                 const resultImage = await this.nsfwApiService.checkNSFWContent({
-                    content: image,
+                    content: 'https://hva-bucket.s3.ap-southeast-1.amazonaws.com/' + image,
                     priority: 'high',
                     type: 'image',
                     userId: userId,
@@ -101,7 +101,7 @@ let PostController = class PostController {
                 if (resultImage.isBanned) {
                     return false;
                 }
-            });
+            }
         }
         return true;
     }
