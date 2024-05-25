@@ -1,4 +1,4 @@
-import { LoginDto } from '../authDto/login.dto';
+import { LoginDto } from '../authDTO/login.dto';
 import { AuthService } from '../user/auth.service';
 export declare class AuthAdminController {
     private readonly authService;

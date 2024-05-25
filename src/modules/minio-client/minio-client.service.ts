@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as Minio from 'minio';
+import 'multer';
 
 @Injectable()
 export class MinioClientService {

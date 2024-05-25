@@ -1,4 +1,4 @@
-/// <reference types="Multer" />
+import 'multer';
 export declare class MinioClientService {
     private minioClient;
     private bucketName;

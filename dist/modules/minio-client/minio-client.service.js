@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MinioClientService = void 0;
 const common_1 = require("@nestjs/common");
 const Minio = require("minio");
+require("multer");
 let MinioClientService = class MinioClientService {
     constructor() {
         this.minioClient = new Minio.Client({

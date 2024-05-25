@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MinioClientService } from './minio-client.service';
-import { Express } from 'express';
+import 'multer';
 import { AuthGuard } from 'src/guard/auth.guard';
 
 @Controller('minio')
