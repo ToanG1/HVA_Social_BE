@@ -7,7 +7,7 @@ import {
   Request,
   UnauthorizedException,
 } from '@nestjs/common';
-import { LoginDto } from '../authDto/login.dto';
+import { LoginDto } from '../authDTO/login.dto';
 import { AuthService } from '../user/auth.service';
 import { AdminAuthGuard } from 'src/guard/adminAuth.guard';
 

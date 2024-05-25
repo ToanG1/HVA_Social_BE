@@ -1,6 +1,6 @@
 import { UserService } from '../../user/user/user.service';
 import { JwtService } from '@nestjs/jwt';
-import { LoginDto } from '../authDto/login.dto';
+import { LoginDto } from '../authDTO/login.dto';
 import { CreateUserDto } from '../../user/userDTO/createUser.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import { MailSenderService } from '../../mail-sender/mail-sender.service';

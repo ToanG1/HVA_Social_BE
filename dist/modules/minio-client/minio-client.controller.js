@@ -16,6 +16,7 @@ exports.MinioClientController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const minio_client_service_1 = require("./minio-client.service");
+require("multer");
 const auth_guard_1 = require("../../guard/auth.guard");
 let MinioClientController = class MinioClientController {
     constructor(minioService) {

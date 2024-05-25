@@ -8,6 +8,7 @@ import {
 import { S3Service } from './s3.service';
 import { AuthGuard } from 'src/guard/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
+import 'multer';
 
 @Controller('s3')
 export class S3Controller {

@@ -20,18 +20,18 @@ export declare class PostController {
     getPostSaved(req: any): import(".prisma/client").Prisma.PrismaPromise<({
         post: {
             user: {
-                name: string;
                 userInfo: {
                     avatar: string;
                 };
+                name: string;
             };
             reacts: {
                 user: {
-                    id: string;
-                    name: string;
                     userInfo: {
                         avatar: string;
                     };
+                    name: string;
+                    id: string;
                 };
             }[];
         } & {
@@ -53,18 +53,18 @@ export declare class PostController {
     })[]>;
     findAll(userId: string): import(".prisma/client").Prisma.PrismaPromise<({
         user: {
-            name: string;
             userInfo: {
                 avatar: string;
             };
+            name: string;
         };
         reacts: {
             user: {
-                id: string;
-                name: string;
                 userInfo: {
                     avatar: string;
                 };
+                name: string;
+                id: string;
             };
         }[];
     } & {
@@ -79,18 +79,18 @@ export declare class PostController {
     })[]>;
     search(content: string): Promise<({
         user: {
-            name: string;
             userInfo: {
                 avatar: string;
             };
+            name: string;
         };
         reacts: {
             user: {
-                id: string;
-                name: string;
                 userInfo: {
                     avatar: string;
                 };
+                name: string;
+                id: string;
             };
         }[];
     } & {
@@ -105,16 +105,16 @@ export declare class PostController {
     })[]>;
     findOne(id: string): Promise<{
         user: {
-            id: string;
             name: string;
+            id: string;
         };
         reacts: {
             user: {
-                id: string;
-                name: string;
                 userInfo: {
                     avatar: string;
                 };
+                name: string;
+                id: string;
             };
         }[];
     } & {

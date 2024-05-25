@@ -1,5 +1,5 @@
-/// <reference types="Multer" />
 import { MinioClientService } from './minio-client.service';
+import 'multer';
 export declare class MinioClientController {
     private readonly minioService;
     constructor(minioService: MinioClientService);
