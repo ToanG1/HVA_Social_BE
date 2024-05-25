@@ -9,3 +9,4 @@ services:
       - '5003:5003'
     volumes:
       - .:/app
+      - /app/node_modules
