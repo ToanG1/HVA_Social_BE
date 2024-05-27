@@ -3,11 +3,14 @@ FROM node:20.11
 WORKDIR /app
 
 COPY package*.json ./
+COPY prisma ./prisma/ 
 
 RUN npm install
 
 COPY . .
 
+RUN npx prisma generate
+
 EXPOSE 5003
 
-CMD ["sh", "-c", "npx prisma generate && npm run start:prod"]
+CMD ["npm", "run", "start:prod"]
